@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Neon Lyra — soft futuristic music from a pink planet</title>
+<meta name="description" content="Neon Lyra is an AI music artist creating soft futuristic music from a pink planet. Listen on Spotify, YouTube, and Apple Music.">
+
+<!-- ============================================================
+     STRUCTURED DATA — this is your search-disambiguation anchor.
+     The "sameAs" links are what tell Google which Neon Lyra this is.
+     >>> REPLACE the placeholder URLs below with your real profiles. <<<
+     ============================================================ -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "MusicGroup",
+  "name": "Neon Lyra",
+  "alternateName": "Neon Lyra (AI music artist)",
+  "description": "AI music artist creating soft futuristic music from a pink planet.",
+  "genre": ["electronic", "synth-pop", "ambient pop", "futuristic pop"],
+  "url": "https://YOUR-DOMAIN.com",
+  "image": "https://YOUR-DOMAIN.com/neon-lyra-cover.jpg",
+  "sameAs": [
+    "https://open.spotify.com/artist/YOUR_SPOTIFY_ARTIST_ID",
+    "https://music.youtube.com/channel/YOUR_OAC_CHANNEL_ID",
+    "https://www.youtube.com/@YOUR_YOUTUBE_HANDLE",
+    "https://music.apple.com/artist/YOUR_APPLE_ARTIST_ID"
+  ]
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;500;600;700&family=Mulish:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --space:        #160d1e;
+    --space-2:      #1f1330;
+    --space-3:      #2a1840;
+    --pink:         #f6c9dd;
+    --pink-bright:  #ffdcec;
+    --rose:         #e08cb0;
+    --magenta:      #ff8fc4;
+    --lilac:        #c4b3e6;
+    --chrome:       #d8cdf0;
+    --starlight:    #fbf2f8;
+    --muted:        #b79fc2;
+    --maxw:         1080px;
+  }
+
+  *{ box-sizing:border-box; margin:0; padding:0; }
+
+  html{ scroll-behavior:smooth; }
+
+  body{
+    font-family:'Mulish', sans-serif;
+    background:
+      radial-gradient(140% 80% at 50% -10%, #3a1d52 0%, rgba(58,29,82,0) 55%),
+      linear-gradient(180deg, #160d1e 0%, #1c1228 40%, #221435 100%);
+    background-attachment:fixed;
+    color:var(--starlight);
+    line-height:1.65;
+    overflow-x:hidden;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  /* faint, soft starfield — kept low-contrast to stay "soft", not harsh */
+  body::before{
+    content:"";
+    position:fixed; inset:0; z-index:0; pointer-events:none;
+    background-image:
+      radial-gradient(1px 1px at 20% 30%, rgba(251,242,248,.6), transparent),
+      radial-gradient(1px 1px at 70% 18%, rgba(251,242,248,.45), transparent),
+      radial-gradient(1px 1px at 85% 60%, rgba(196,179,230,.5), transparent),
+      radial-gradient(1px 1px at 35% 75%, rgba(251,242,248,.4), transparent),
+      radial-gradient(1px 1px at 12% 85%, rgba(224,140,176,.4), transparent),
+      radial-gradient(1px 1px at 55% 50%, rgba(251,242,248,.35), transparent);
+    opacity:.7;
+  }
+
+  .wrap{ width:100%; max-width:var(--maxw); margin:0 auto; padding:0 28px; position:relative; z-index:1; }
+
+  /* ---------- nav ---------- */
+  .nav{
+    position:relative; z-index:3;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:26px 28px; max-width:var(--maxw); margin:0 auto;
+  }
+  .nav .mark{
+    font-family:'Josefin Sans', sans-serif;
+    font-weight:600; letter-spacing:.32em; text-transform:uppercase;
+    font-size:.82rem; color:var(--pink);
+  }
+  .nav .links{ display:flex; gap:26px; }
+  .nav .links a{
+    font-size:.78rem; letter-spacing:.14em; text-transform:uppercase;
+    color:var(--muted); text-decoration:none; transition:color .25s ease;
+  }
+  .nav .links a:hover{ color:var(--pink-bright); }
+
+  /* ---------- hero ---------- */
+  .hero{
+    position:relative; z-index:1;
+    min-height:88vh;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    text-align:center; padding:40px 28px 80px;
+  }
+
+  .planet-stage{
+    position:relative;
+    width:min(60vw, 360px); aspect-ratio:1;
+    margin-bottom:48px;
+  }
+  .planet-glow{
+    position:absolute; inset:-40%;
+    border-radius:50%;
+    background:radial-gradient(circle at 50% 50%, rgba(255,143,196,.42) 0%, rgba(224,140,176,.18) 35%, rgba(196,179,230,0) 70%);
+    filter:blur(14px);
+    animation:breathe 9s ease-in-out infinite;
+  }
+  .planet{
+    position:absolute; inset:0; border-radius:50%;
+    background:
+      radial-gradient(circle at 34% 30%, #ffe3ef 0%, #ffc6df 18%, #f29ec3 42%, #d873a4 68%, #9d4f86 100%);
+    box-shadow:
+      inset -22px -26px 60px rgba(80,30,80,.55),
+      inset 16px 18px 40px rgba(255,231,243,.55),
+      0 0 60px rgba(255,143,196,.35);
+  }
+  /* soft atmospheric ring */
+  .planet-ring{
+    position:absolute; inset:-12%;
+    border-radius:50%;
+    border:1px solid rgba(246,201,221,.25);
+    box-shadow:0 0 30px rgba(246,201,221,.15);
+  }
+
+  .hero h1{
+    font-family:'Josefin Sans', sans-serif;
+    font-weight:300;
+    font-size:clamp(3rem, 12vw, 6.6rem);
+    letter-spacing:.04em;
+    line-height:.98;
+    background:linear-gradient(105deg, #ffdcec 0%, #ff8fc4 38%, #e08cb0 60%, #c4b3e6 100%);
+    -webkit-background-clip:text; background-clip:text;
+    color:transparent;
+    margin-bottom:22px;
+  }
+  .hero .tagline{
+    font-family:'Mulish', sans-serif;
+    font-weight:300;
+    font-size:clamp(1rem, 2.6vw, 1.32rem);
+    letter-spacing:.05em;
+    color:var(--pink);
+    opacity:.92;
+  }
+  .hero .cta-row{ margin-top:42px; display:flex; gap:16px; flex-wrap:wrap; justify-content:center; }
+
+  .btn{
+    font-family:'Josefin Sans', sans-serif;
+    font-weight:500; letter-spacing:.16em; text-transform:uppercase; font-size:.8rem;
+    text-decoration:none; padding:14px 30px; border-radius:40px;
+    transition:transform .25s ease, box-shadow .25s ease, background .25s ease;
+    display:inline-block;
+  }
+  .btn-primary{
+    color:#2a1031;
+    background:linear-gradient(100deg, #ffdcec, #ff9fcb 55%, #e08cb0);
+    box-shadow:0 6px 24px rgba(255,143,196,.32);
+  }
+  .btn-primary:hover{ transform:translateY(-2px); box-shadow:0 10px 30px rgba(255,143,196,.45); }
+  .btn-ghost{
+    color:var(--pink); border:1px solid rgba(246,201,221,.4); background:transparent;
+  }
+  .btn-ghost:hover{ background:rgba(246,201,221,.08); transform:translateY(-2px); }
+
+  /* ---------- section shells ---------- */
+  .section{ padding:96px 0; position:relative; z-index:1; }
+  .eyebrow{
+    font-family:'Josefin Sans', sans-serif;
+    font-weight:600; letter-spacing:.34em; text-transform:uppercase;
+    font-size:.74rem; color:var(--rose); margin-bottom:18px;
+  }
+  .section-title{
+    font-family:'Josefin Sans', sans-serif;
+    font-weight:300; font-size:clamp(1.9rem, 5vw, 3rem);
+    letter-spacing:.02em; line-height:1.08; margin-bottom:14px; color:var(--starlight);
+  }
+  .section-intro{
+    max-width:560px; color:var(--muted); font-weight:300;
+    font-size:1.02rem; margin-bottom:52px;
+  }
+
+  /* ---------- tracks ---------- */
+  .tracks{ display:grid; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr)); gap:22px; }
+  .track{
+    background:linear-gradient(160deg, rgba(42,24,64,.7), rgba(31,19,48,.55));
+    border:1px solid rgba(246,201,221,.12);
+    border-radius:20px; padding:30px 28px;
+    transition:transform .3s ease, border-color .3s ease, box-shadow .3s ease;
+  }
+  .track:hover{
+    transform:translateY(-4px);
+    border-color:rgba(255,143,196,.4);
+    box-shadow:0 14px 36px rgba(20,8,30,.5);
+  }
+  .track .num{
+    font-family:'Josefin Sans', sans-serif; font-weight:600;
+    font-size:.82rem; letter-spacing:.2em; color:var(--rose); opacity:.7;
+  }
+  .track h3{
+    font-family:'Josefin Sans', sans-serif; font-weight:400;
+    font-size:1.5rem; letter-spacing:.01em; margin:14px 0 8px; color:var(--pink-bright);
+  }
+  .track .mood{ font-size:.82rem; letter-spacing:.12em; text-transform:uppercase; color:var(--lilac); margin-bottom:14px; }
+  .track p{ color:var(--muted); font-weight:300; font-size:.96rem; margin-bottom:22px; }
+  .track a.play{
+    font-family:'Josefin Sans', sans-serif; font-weight:500;
+    font-size:.78rem; letter-spacing:.16em; text-transform:uppercase;
+    color:var(--pink); text-decoration:none; border-bottom:1px solid rgba(246,201,221,.3);
+    padding-bottom:3px; transition:color .25s ease, border-color .25s ease;
+  }
+  .track a.play:hover{ color:var(--pink-bright); border-color:var(--pink-bright); }
+
+  /* ---------- personas spectrum (signature element) ---------- */
+  .spectrum{ display:grid; grid-template-columns:repeat(3, 1fr); gap:0; border-radius:24px; overflow:hidden; border:1px solid rgba(246,201,221,.14); }
+  .persona{ padding:44px 34px; position:relative; min-height:300px; display:flex; flex-direction:column; justify-content:flex-end; }
+  .persona-1{ background:linear-gradient(180deg, rgba(255,220,236,.10), rgba(246,201,221,.04)); }
+  .persona-2{ background:linear-gradient(180deg, rgba(255,143,196,.16), rgba(224,140,176,.05)); }
+  .persona-3{ background:linear-gradient(180deg, rgba(196,179,230,.16), rgba(150,120,210,.05)); }
+  .persona .dot{ width:42px; height:42px; border-radius:50%; margin-bottom:auto; }
+  .persona-1 .dot{ background:radial-gradient(circle at 35% 30%, #ffe3ef, #f6c9dd 60%, #e0a8c4); box-shadow:0 0 22px rgba(246,201,221,.5); }
+  .persona-2 .dot{ background:radial-gradient(circle at 35% 30%, #ffc6e2, #ff8fc4 60%, #d8629c); box-shadow:0 0 22px rgba(255,143,196,.55); }
+  .persona-3 .dot{ background:radial-gradient(circle at 35% 30%, #e6dcfa, #c4b3e6 60%, #9b86d4); box-shadow:0 0 22px rgba(196,179,230,.55); }
+  .persona h3{
+    font-family:'Josefin Sans', sans-serif; font-weight:400;
+    font-size:1.42rem; letter-spacing:.02em; margin:28px 0 10px; color:var(--starlight);
+  }
+  .persona p{ color:var(--muted); font-weight:300; font-size:.94rem; }
+
+  /* ---------- about ---------- */
+  .about-grid{ display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:center; }
+  .about-copy p{ color:var(--pink); font-weight:300; font-size:1.12rem; margin-bottom:20px; line-height:1.8; }
+  .about-copy p.lead{
+    font-family:'Josefin Sans', sans-serif; font-weight:300;
+    font-size:clamp(1.4rem, 3.4vw, 2rem); color:var(--starlight); line-height:1.4; letter-spacing:.01em;
+  }
+  .about-note{ font-size:.86rem; color:var(--muted); border-left:2px solid rgba(224,140,176,.4); padding-left:16px; margin-top:30px; }
+  .about-visual{
+    aspect-ratio:1; border-radius:24px;
+    background:
+      radial-gradient(circle at 60% 35%, #ffd9ea 0%, #ff9fcb 30%, #c98ab8 60%, #6a4f86 100%);
+    box-shadow:inset -20px -24px 60px rgba(60,20,70,.5), 0 16px 50px rgba(20,8,30,.5);
+    position:relative; overflow:hidden;
+  }
+  .about-visual::after{
+    content:""; position:absolute; inset:0;
+    background:radial-gradient(circle at 30% 80%, rgba(196,179,230,.4), transparent 50%);
+  }
+
+  /* ---------- listen bar ---------- */
+  .listen{ text-align:center; }
+  .listen .platforms{ display:flex; gap:14px; flex-wrap:wrap; justify-content:center; margin-top:6px; }
+  .platforms a{
+    font-family:'Josefin Sans', sans-serif; font-weight:500;
+    letter-spacing:.14em; text-transform:uppercase; font-size:.8rem;
+    color:var(--starlight); text-decoration:none;
+    padding:14px 26px; border-radius:40px;
+    border:1px solid rgba(246,201,221,.22);
+    transition:background .25s ease, border-color .25s ease, transform .25s ease;
+  }
+  .platforms a:hover{ background:rgba(246,201,221,.1); border-color:rgba(246,201,221,.5); transform:translateY(-2px); }
+
+  /* ---------- footer ---------- */
+  footer{ padding:60px 0 50px; text-align:center; position:relative; z-index:1; border-top:1px solid rgba(246,201,221,.1); margin-top:40px; }
+  footer .fmark{
+    font-family:'Josefin Sans', sans-serif; font-weight:600;
+    letter-spacing:.3em; text-transform:uppercase; font-size:.85rem; color:var(--pink); margin-bottom:14px;
+  }
+  footer p{ color:var(--muted); font-size:.82rem; font-weight:300; }
+  footer .from{ color:var(--rose); font-style:italic; margin-top:6px; }
+
+  /* ---------- reveal animation ---------- */
+  .reveal{ opacity:0; transform:translateY(24px); transition:opacity .8s ease, transform .8s ease; }
+  .reveal.in{ opacity:1; transform:none; }
+
+  @keyframes breathe{
+    0%,100%{ transform:scale(1); opacity:.85; }
+    50%{ transform:scale(1.08); opacity:1; }
+  }
+
+  /* ---------- responsive ---------- */
+  @media (max-width:760px){
+    .nav .links{ display:none; }
+    .spectrum{ grid-template-columns:1fr; }
+    .about-grid{ grid-template-columns:1fr; gap:36px; }
+    .about-visual{ max-width:320px; margin:0 auto; width:100%; }
+    .section{ padding:72px 0; }
+  }
+
+  @media (prefers-reduced-motion:reduce){
+    .planet-glow{ animation:none; }
+    .reveal{ transition:none; opacity:1; transform:none; }
+    html{ scroll-behavior:auto; }
+  }
+
+  a:focus-visible, .btn:focus-visible{ outline:2px solid var(--pink-bright); outline-offset:3px; border-radius:6px; }
+</style>
+</head>
+<body>
+
+  <!-- ════════════════════════════════════════════════════════════════
+       ✏️  HOW TO EDIT THIS WEBSITE  (read me first!)
+       ════════════════════════════════════════════════════════════════
+       Everything you'll want to change is BELOW this line, in plain text.
+
+       1. TEXT & BUTTON LABELS: change the words between  >  and  <
+          Example:   <a class="btn btn-primary" ...>Listen now</a>
+          Change only:                            ^^^^^^^^^^
+
+       2. LINKS: replace anything that says  YOUR_...  or  YOUR-LINK
+          with your real web address, keeping the quote marks "...".
+
+       3. SAFE TO IGNORE: the <tags>, the class="..." parts, and the
+          whole <style> section up top (that's just the colours/design).
+
+       4. The spots you'll most likely want to edit are marked with
+          a   <!-- ✏️ EDIT ... -->   comment, like signposts.
+
+       Save the file after editing, re-publish (your host does this),
+       and the live site updates. Nothing here can "break" the design.
+       ════════════════════════════════════════════════════════════════ -->
+
+  <nav class="nav">
+    <span class="mark">Neon Lyra</span>
+    <div class="links">
+      <a href="#music">Music</a>
+      <a href="#personas">Personas</a>
+      <a href="#about">About</a>
+      <a href="#listen">Listen</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header class="hero">
+    <div class="planet-stage">
+      <div class="planet-ring"></div>
+      <div class="planet-glow"></div>
+      <div class="planet"></div>
+    </div>
+    <!-- ✏️ EDIT: your artist name (the &nbsp; just keeps it on one line) -->
+    <h1>Neon&nbsp;Lyra</h1>
+    <!-- ✏️ EDIT: your tagline -->
+    <p class="tagline">soft futuristic music from a pink planet</p>
+    <div class="cta-row">
+      <!-- ✏️ EDIT: button labels -->
+      <a class="btn btn-primary" href="#listen">Listen now</a>
+      <a class="btn btn-ghost" href="#music">Latest release</a>
+    </div>
+  </header>
+
+  <!-- MUSIC -->
+  <section class="section" id="music">
+    <div class="wrap">
+      <p class="eyebrow reveal">Transmissions</p>
+      <h2 class="section-title reveal">Songs from the pink planet</h2>
+      <p class="section-intro reveal">Signals sent across the dark — soft, electric, somewhere between a dream and a machine.</p>
+
+      <div class="tracks">
+        <!-- ✏️ EDIT a track: change the title, mood label, and description.
+             Replace YOUR-LINK in href="..." with the song's real URL. -->
+        <article class="track reveal">
+          <span class="num">Newest signal</span>
+          <h3>Soft Places to Land</h3>
+          <p class="mood">Soft Planet Muse</p>
+          <p>The latest release — weightless and warm, a slow descent home through pink atmosphere.</p>
+          <!-- REPLACE href with your real link -->
+          <a class="play" href="https://YOUR-LINK/soft-places-to-land">Play ›</a>
+        </article>
+
+        <article class="track reveal">
+          <span class="num">Signal 02</span>
+          <h3>Trapped in Steel</h3>
+          <p class="mood">Machine Queen</p>
+          <p>Chrome and voltage. Where the soft planet turns cold and the beat takes over — pure cyberpunk pulse.</p>
+          <a class="play" href="https://YOUR-LINK/trapped-in-steel">Play ›</a>
+        </article>
+
+        <article class="track reveal">
+          <span class="num">Signal 03</span>
+          <h3>Red Dirt Road</h3>
+          <p class="mood">Mars Vacation</p>
+          <p>A drive across red dust under two moons — wide, wistful, and a little out of this world.</p>
+          <a class="play" href="https://YOUR-LINK/red-dirt-road">Play ›</a>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- PERSONAS (signature) -->
+  <section class="section" id="personas">
+    <div class="wrap">
+      <p class="eyebrow reveal">One voice, three lights</p>
+      <h2 class="section-title reveal">Which Neon Lyra are you hearing?</h2>
+      <p class="section-intro reveal">Every song lands somewhere on the spectrum — from the first soft light, through the bright pull, to the cold machine edge.</p>
+
+      <div class="spectrum reveal">
+        <div class="persona persona-1">
+          <span class="dot"></span>
+          <h3>Soft Planet Muse</h3>
+          <p>The first light. Breathy, weightless, half-dreaming — songs that arrive like dawn over the pink planet.</p>
+        </div>
+        <div class="persona persona-2">
+          <span class="dot"></span>
+          <h3>Pop Siren</h3>
+          <p>The pull. Glossy hooks and neon choruses, bright enough to carry across the dark between stars.</p>
+        </div>
+        <div class="persona persona-3">
+          <span class="dot"></span>
+          <h3>Machine Queen</h3>
+          <p>The edge. Chrome, steel, and current — where soft turns sharp and the machine takes the lead.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="section" id="about">
+    <div class="wrap">
+      <p class="eyebrow reveal">The planet</p>
+      <div class="about-grid">
+        <div class="about-copy reveal">
+          <p class="lead">Neon Lyra is an AI music artist broadcasting soft futuristic pop from a planet that glows pink.</p>
+          <p>The sound moves between tenderness and chrome — ambient and weightless one moment, electric and sharp the next. Same voice, different light.</p>
+          <p class="about-note">All music is created and released by Neon Lyra as an AI music project, disclosed in line with platform and EU requirements.</p>
+        </div>
+        <div class="about-visual reveal" aria-hidden="true"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LISTEN -->
+  <section class="section listen" id="listen">
+    <div class="wrap">
+      <p class="eyebrow reveal">Tune in</p>
+      <h2 class="section-title reveal">Listen everywhere</h2>
+      <p class="section-intro reveal" style="margin-left:auto;margin-right:auto;">Follow Neon Lyra on your platform of choice — the official home for every release.</p>
+      <div class="platforms reveal">
+        <!-- REPLACE each href with your real profile URLs -->
+        <a href="https://open.spotify.com/artist/YOUR_SPOTIFY_ARTIST_ID">Spotify</a>
+        <a href="https://music.youtube.com/channel/YOUR_OAC_CHANNEL_ID">YouTube Music</a>
+        <a href="https://www.youtube.com/@YOUR_YOUTUBE_HANDLE">YouTube</a>
+        <a href="https://music.apple.com/artist/YOUR_APPLE_ARTIST_ID">Apple Music</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="wrap">
+      <p class="fmark">Neon Lyra</p>
+      <p>© <span id="yr"></span> Neon Lyra. All rights reserved.</p>
+      <p class="from">broadcasting from a pink planet</p>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('yr').textContent = new Date().getFullYear();
+
+    // gentle scroll reveal
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, { threshold:0.15 });
+    document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+  </script>
+
+</body>
+</html>
