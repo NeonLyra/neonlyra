@@ -99,11 +99,46 @@
 
   /* ---- brand mark ---- */
   .mark{
-    position:fixed; top:26px; left:30px; z-index:3;
+    position:fixed; top:26px; left:30px; z-index:5;
     font-family:'Josefin Sans',sans-serif; font-weight:600;
     letter-spacing:.32em; text-transform:uppercase; font-size:.78rem;
     color:var(--pink); text-shadow:0 2px 16px rgba(13,7,20,.8);
+    text-decoration:none;
   }
+
+  /* ---- nav tabs (fixed, always reachable) ---- */
+  .nav{
+    position:fixed; top:18px; left:50%; transform:translateX(-50%); z-index:5;
+    display:flex; gap:4px; padding:6px;
+    background:rgba(24,13,36,.55);
+    -webkit-backdrop-filter:blur(16px); backdrop-filter:blur(16px);
+    border:1px solid rgba(246,201,221,.16); border-radius:40px;
+    box-shadow:0 8px 30px rgba(10,5,16,.4);
+  }
+  .nav a{
+    font-family:'Josefin Sans',sans-serif; font-weight:500;
+    font-size:.72rem; letter-spacing:.14em; text-transform:uppercase;
+    color:var(--muted); text-decoration:none;
+    padding:9px 18px; border-radius:30px;
+    transition:color .25s ease, background .25s ease;
+  }
+  .nav a:hover{ color:var(--pink-bright); background:rgba(246,201,221,.08); }
+  .nav a.active{ color:#2a1031; background:linear-gradient(100deg,#ffdcec,#ff9fcb 60%,#e08cb0); }
+
+  /* ---- persistent listen button ---- */
+  .listen-fab{
+    position:fixed; right:26px; bottom:26px; z-index:5;
+    display:flex; align-items:center; gap:9px;
+    font-family:'Josefin Sans',sans-serif; font-weight:500;
+    font-size:.76rem; letter-spacing:.14em; text-transform:uppercase;
+    color:#2a1031; text-decoration:none;
+    padding:14px 24px; border-radius:40px;
+    background:linear-gradient(100deg,#ffdcec,#ff9fcb 55%,#e08cb0);
+    box-shadow:0 8px 30px rgba(255,143,196,.4);
+    transition:transform .25s ease, box-shadow .25s ease;
+  }
+  .listen-fab:hover{ transform:translateY(-3px); box-shadow:0 12px 38px rgba(255,143,196,.55); }
+  .listen-fab svg{ width:15px; height:15px; }
 
   /* ---- panels ---- */
   .panel{ min-height:100vh; display:flex; align-items:center; padding:12vh 7vw; position:relative; }
@@ -262,7 +297,10 @@
   @media (max-width:680px){
     .panel{ padding:10vh 6vw; }
     .card{ padding:38px 30px; }
-    .mark{ left:22px; }
+    .mark{ display:none; }
+    .nav{ top:12px; padding:4px; gap:2px; max-width:94vw; }
+    .nav a{ padding:8px 11px; font-size:.62rem; letter-spacing:.08em; }
+    .listen-fab{ right:16px; bottom:16px; padding:12px 18px; font-size:.68rem; }
   }
   @media (prefers-reduced-motion:reduce){
     .js .reveal{ transition:none; opacity:1; transform:none; }
@@ -280,12 +318,28 @@
   <div id="bg"></div>
   <div class="vignette"></div>
 
-  <span class="mark">Neon Lyra</span>
+  <a class="mark" href="#top">Neon Lyra</a>
+
+  <nav class="nav" id="nav">
+    <a href="#top" data-sec="top">Home</a>
+    <a href="#music" data-sec="music">Music</a>
+    <a href="#catalogue" data-sec="catalogue">Catalogue</a>
+    <a href="#about" data-sec="about">About</a>
+    <a href="#listen" data-sec="listen">Listen</a>
+  </nav>
+
+  <!-- ✏️ EDIT: this always-visible button can point anywhere.
+       Right now it jumps to the Listen section. To send people straight
+       to Spotify instead, change the href to your Spotify artist URL. -->
+  <a class="listen-fab" href="#listen">
+    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+    Listen
+  </a>
 
   <div id="scroll">
 
     <!-- HERO -->
-    <section class="panel center">
+    <section class="panel center" id="top">
       <div class="hero-stage">
         <div class="card hero-card reveal">
           <!-- ✏️ EDIT: your name + tagline -->
@@ -297,7 +351,7 @@
     </section>
 
     <!-- MUSIC — text left, planet drifts right -->
-    <section class="panel left">
+    <section class="panel left" id="music">
       <div class="card reveal">
         <p class="eyebrow">Transmissions</p>
         <h2>Songs from the <em>pink planet</em></h2>
@@ -312,7 +366,7 @@
     </section>
 
     <!-- PERSONAS — text right, planet drifts left -->
-    <section class="panel right">
+    <section class="panel right" id="personas">
       <div class="card reveal">
         <p class="eyebrow">One voice, three lights</p>
         <h2>Which Neon Lyra<br>are you <em>hearing?</em></h2>
@@ -330,7 +384,7 @@
          and the href links. ⚠️ Songs without a link yet point to your
          Spotify artist page — replace each with its own song link
          (HyperFollow, Spotify track, or YouTube) when you have it. -->
-    <section class="panel center">
+    <section class="panel center" id="catalogue">
       <div class="card wide reveal">
         <p class="eyebrow">The catalogue</p>
         <h2>Every song, every <em>identity</em></h2>
@@ -402,76 +456,47 @@
       </div>
     </section>
 
-    <!-- ABOUT — LAYER 1: your own words. This is what humans read. -->
+    <!-- ABOUT — one section, your voice, with the searchable facts woven in.
+         (Netherlands, 2024, genres, platforms, the ISC award.) -->
     <section class="panel left" id="about">
       <div class="card reveal">
         <p class="eyebrow">About</p>
         <h2>Who is <em>Neon Lyra?</em></h2>
 
         <p class="body" style="margin-bottom:16px;">
-          Neon Lyra is a music project shaped by the contrasts in my life: South African by heart,
-          Dutch by postcode, actuary by day, artist by night.
+          Neon Lyra is an AI music artist and music project based in the Netherlands, founded in
+          2024 — shaped by the contrasts in my life: South African by heart, Dutch by postcode,
+          actuary by day, artist by night.
         </p>
         <p class="body" style="margin-bottom:16px;">
           Through Neon Lyra I explore expatriation, queer love, emotional duality, feminine power,
-          loneliness, and the beauty of staying human in a digital world. The vibe is pink planets
-          in space, futuristic machines with feminine energy — an invitation into a world of
-          thoughts on the future, space, philosophy and psychology.
+          loneliness, and the beauty of staying human in a digital world. The sound is electronic
+          pop — synth-pop, cyberpunk, queer dance and ambient. The vibe is pink planets in space,
+          futuristic machines with feminine energy: an invitation into a world of thoughts on the
+          future, space, philosophy and psychology.
         </p>
         <p class="body" style="margin-bottom:16px;">
           AI is part of my creative instrument, but the lyrics, emotional direction, sound and
           themes are mine. <strong>Neon Lyra is where technology meets feeling.</strong>
-        </p>
-        <p class="body" style="margin-bottom:16px;">
           In 2025, the lyrics of <em>“Glitter in the Hookah Smoke”</em> placed second in the
           Lyrics Only category of the International Songwriting Competition (ISC).
         </p>
         <p class="body" style="margin-bottom:16px;">
           Neon Lyra releases singles, grouped into three chapters — each with its own mood, its own
-          artwork, and its own world. The first chapter is futuristic and sci-fi inspired: thoughts,
+          artwork, its own world. The first chapter is futuristic and sci-fi inspired: thoughts,
           emotions, loneliness, identity, and our future relationship with machines and AI. The
-          second chapter moves into a more playful space, with dance, party and rebel energy —
-          confidence, freedom, and the liberating feeling of being fully yourself. The third
-          chapter takes a gentler turn: softer, more relaxing and introspective, focusing on inner
-          growth, rest, self-care, presence, nature, and learning to listen to your inner self.
+          second moves into a more playful space, with dance, party and rebel energy — confidence,
+          freedom, and the liberating feeling of being fully yourself. The third takes a gentler
+          turn: softer, more relaxing and introspective, focusing on inner growth, rest, self-care,
+          presence, nature, and learning to listen to your inner self.
         </p>
         <p class="body">
-          Each chapter has its own atmosphere — that’s why the covers differ. Choose one depending
-          on the mood you’re in.
+          Every song is on Spotify, Apple Music, YouTube Music and all major streaming platforms.
+          Each chapter has its own atmosphere — choose one depending on the mood you’re in.
         </p>
       </div>
     </section>
 
-    <!-- ABOUT — LAYER 2: the plain facts. This is what Google and AI search
-         engines read and quote. Keep it factual and third-person.
-         ✏️ EDIT: keep this factual — it's what gets quoted. -->
-    <section class="panel right" id="facts">
-      <div class="card reveal">
-        <p class="eyebrow">The facts</p>
-        <h2>Neon Lyra <em>in short</em></h2>
-
-        <p class="body" style="margin-bottom:16px;">
-          Neon Lyra is an AI music artist and music project based in the Netherlands, founded in
-          2024 by a South African–born actuary working under the Neon Lyra name. The music is
-          electronic pop: synth-pop, electropop, cyberpunk, ambient pop and queer dance. Neon Lyra
-          releases on Spotify, Apple Music, YouTube Music and all other major streaming platforms.
-        </p>
-        <p class="body" style="margin-bottom:16px;">
-          The project is openly AI-assisted and discloses the use of AI on every release. The
-          lyrics, emotional direction, sound and themes are written and directed by the artist.
-          In 2025 the lyrics of “Glitter in the Hookah Smoke” were awarded second place in the
-          Lyrics Only category of the International Songwriting Competition (ISC).
-        </p>
-        <p class="body">
-          Neon Lyra releases music as singles, grouped into three visual chapters by mood: a
-          futuristic cyberpunk chapter, a queer dance and party chapter, and a soft, introspective
-          chapter. Songs include “Trapped in Steel”, “Rise of the Machine Queen”, “Pink Lemonade”,
-          “Code of Loneliness”, “Red Dirt Road (Mars Vacation)”, “Sunday Mornings”, “Funky Love”,
-          “Battle Cry”, “Glitter in the Hookah Smoke”, “Trick of the Night” and
-          “Soft Places to Land”.
-        </p>
-      </div>
-    </section>
 
     <!-- FAQ — clear Q&A text is what AI search engines quote most. -->
     <section class="panel left" id="faq">
@@ -506,7 +531,7 @@
     </section>
 
     <!-- LISTEN -->
-    <section class="panel center">
+    <section class="panel center" id="listen">
       <div class="card reveal" style="text-align:center;">
         <p class="eyebrow">Tune in</p>
         <h2>Listen <em>everywhere</em></h2>
@@ -642,12 +667,9 @@
       /* about: descend to the left, planet drifts right */
         .to(camera.position, { x:-5, y:0.5, z:11, ease:'none' })
         .to(look, { x:-4.5, y:0.4, z:0, ease:'none' }, '<')
-      /* facts: swing right, planet drifts left */
-        .to(camera.position, { x:5.2, y:1.4, z:11, ease:'none' })
-        .to(look, { x:4.6, y:0.6, z:0, ease:'none' }, '<')
-      /* faq: back to the left, planet drifts right */
-        .to(camera.position, { x:-4.8, y:2.2, z:10.5, ease:'none' })
-        .to(look, { x:-4.3, y:0.9, z:0, ease:'none' }, '<')
+      /* faq: swing right, planet drifts left */
+        .to(camera.position, { x:5.2, y:1.6, z:10.5, ease:'none' })
+        .to(look, { x:4.6, y:0.7, z:0, ease:'none' }, '<')
       /* listen: pull back to a wide, calm vista */
         .to(camera.position, { x:0, y:5, z:24, ease:'none' })
         .to(look, { x:0, y:0, z:0, ease:'none' }, '<');
@@ -703,6 +725,19 @@
     if(document.readyState === 'complete'){ hideLoader(); }
     else { window.addEventListener('load', ()=> setTimeout(hideLoader, 300)); }
     setTimeout(hideLoader, 3000);
+
+    /* ---------- nav: highlight the section you're in ---------- */
+    const navLinks = document.querySelectorAll('#nav a');
+    const secs = ['top','music','catalogue','about','listen']
+      .map(id => document.getElementById(id)).filter(Boolean);
+    const navIO = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{
+        if(e.isIntersecting){
+          navLinks.forEach(a=>a.classList.toggle('active', a.dataset.sec === e.target.id));
+        }
+      });
+    }, { threshold:0.5 });
+    secs.forEach(s=>navIO.observe(s));
 
     /* ---------- discography identity filter ---------- */
     const chips = document.querySelectorAll('#filters .fchip');
