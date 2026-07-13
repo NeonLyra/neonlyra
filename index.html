@@ -19,14 +19,29 @@
   "@context": "https://schema.org",
   "@type": "MusicGroup",
   "name": "Neon Lyra",
-  "description": "AI music artist creating soft futuristic music from a pink planet.",
-  "genre": ["electronic", "synth-pop", "ambient pop"],
+  "description": "Neon Lyra is an AI music artist based in the Netherlands, founded in 2024, making futuristic pop — from introspective synth-pop to queer cosmic club tracks and cyberpunk — set on an imagined pink planet.",
+  "foundingDate": "2024",
+  "foundingLocation": { "@type": "Country", "name": "Netherlands" },
+  "genre": ["electronic", "synth-pop", "electropop", "ambient pop", "cyberpunk", "dance"],
   "url": "https://neonlyra.com",
   "sameAs": [
     "https://open.spotify.com/artist/214mPBUKBjxZOS77kDp3WM",
     "https://music.youtube.com/channel/UC-nJ0w-FyFwO5KUStmCe4Kw",
     "https://www.youtube.com/@NeonLyra-x4n",
     "https://music.apple.com/artist/1794814168"
+  ],
+  "track": [
+    { "@type": "MusicRecording", "name": "Pink Lemonade", "byArtist": { "@type": "MusicGroup", "name": "Neon Lyra" } },
+    { "@type": "MusicRecording", "name": "Trapped in Steel", "byArtist": { "@type": "MusicGroup", "name": "Neon Lyra" } },
+    { "@type": "MusicRecording", "name": "Rise of the Machine Queen", "byArtist": { "@type": "MusicGroup", "name": "Neon Lyra" } },
+    { "@type": "MusicRecording", "name": "Code of Loneliness", "byArtist": { "@type": "MusicGroup", "name": "Neon Lyra" } },
+    { "@type": "MusicRecording", "name": "Red Dirt Road (Mars Vacation)", "byArtist": { "@type": "MusicGroup", "name": "Neon Lyra" } },
+    { "@type": "MusicRecording", "name": "Sunday Mornings", "byArtist": { "@type": "MusicGroup", "name": "Neon Lyra" } },
+    { "@type": "MusicRecording", "name": "Funky Love", "byArtist": { "@type": "MusicGroup", "name": "Neon Lyra" } },
+    { "@type": "MusicRecording", "name": "Battle Cry", "byArtist": { "@type": "MusicGroup", "name": "Neon Lyra" } },
+    { "@type": "MusicRecording", "name": "Glitter in the Hookah Smoke", "byArtist": { "@type": "MusicGroup", "name": "Neon Lyra" } },
+    { "@type": "MusicRecording", "name": "Trick of the Night", "byArtist": { "@type": "MusicGroup", "name": "Neon Lyra" } },
+    { "@type": "MusicRecording", "name": "Soft Places to Land", "byArtist": { "@type": "MusicGroup", "name": "Neon Lyra" } }
   ]
 }
 </script>
@@ -168,6 +183,43 @@
   }
   @keyframes bob{ 0%,100%{ transform:translate(-50%,0); opacity:.55; } 50%{ transform:translate(-50%,9px); opacity:1; } }
 
+  /* ---- discography matrix ---- */
+  .card.wide{ max-width:780px; width:100%; }
+  .filters{ margin-top:26px; display:flex; flex-wrap:wrap; gap:8px; }
+  .fchip{
+    font-family:'Josefin Sans',sans-serif; font-size:.72rem; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--lilac);
+    background:rgba(196,179,230,.08); border:1px solid rgba(196,179,230,.25);
+    border-radius:30px; padding:7px 15px; cursor:pointer;
+    transition:all .25s ease;
+  }
+  .fchip:hover{ border-color:rgba(255,143,196,.5); color:var(--pink-bright); }
+  .fchip.active{
+    background:linear-gradient(100deg,#ffdcec,#ff9fcb 60%,#e08cb0);
+    color:#2a1031; border-color:transparent; box-shadow:0 4px 16px rgba(255,143,196,.35);
+  }
+  .disco{ margin-top:22px; display:flex; flex-direction:column; }
+  .song{
+    display:flex; flex-direction:column; gap:8px;
+    padding:18px 4px; border-bottom:1px solid rgba(246,201,221,.13);
+    text-decoration:none; transition:padding-left .3s ease, border-color .3s ease, opacity .3s ease;
+  }
+  .song:hover{ padding-left:12px; border-color:rgba(255,143,196,.5); }
+  .song .t{ font-family:'Josefin Sans',sans-serif; font-size:1.25rem; color:var(--pink-bright); }
+  .song .tags{ display:flex; flex-wrap:wrap; gap:6px; }
+  .song .tag{
+    font-size:.66rem; letter-spacing:.12em; text-transform:uppercase;
+    color:var(--lilac); background:rgba(196,179,230,.1);
+    border-radius:20px; padding:4px 11px;
+  }
+  .song.hide{ display:none; }
+  .disco-count{ margin-top:14px; font-size:.78rem; color:var(--muted); letter-spacing:.08em; }
+
+  /* ---- FAQ ---- */
+  .faq-item{ margin-top:22px; }
+  .faq-item .q{ font-family:'Josefin Sans',sans-serif; font-size:1.1rem; color:var(--pink-bright); margin-bottom:6px; }
+  .faq-item p{ font-size:.97rem; }
+
   /* loader */
   .loader{ position:fixed; inset:0; z-index:6; background:#150c1e; display:flex; align-items:center; justify-content:center; transition:opacity .7s ease; }
   .loader .l{ font-family:'Josefin Sans',sans-serif; letter-spacing:.4em; text-transform:uppercase; font-size:.78rem; color:var(--pink); animation:pulse 1.6s ease-in-out infinite; }
@@ -246,6 +298,138 @@
           <div class="pers a"><span class="dot"></span><div><div class="n">Artist Philosopher</div><div class="d">Introspective, half-dreaming — covers themes like feminism, mental health etc.</div></div></div>
           <div class="pers b"><span class="dot"></span><div><div class="n">Party Queen</div><div class="d">Lgbt+ cosmic club vibes - bright enough to cross the dark.</div></div></div>
           <div class="pers c"><span class="dot"></span><div><div class="n">Science Nerd</div><div class="d">Machines with feminine energy — futuristic space vibes.</div></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- DISCOGRAPHY MATRIX — every song, filterable by identity.
+         ✏️ EDIT: song titles, tags (in data-tags AND the visible chips),
+         and the href links. ⚠️ Songs without a link yet point to your
+         Spotify artist page — replace each with its own song link
+         (HyperFollow, Spotify track, or YouTube) when you have it. -->
+    <section class="panel center">
+      <div class="card wide reveal">
+        <p class="eyebrow">The catalogue</p>
+        <h2>Every song, every <em>identity</em></h2>
+        <p class="body">Songs from the pink planet rarely wear one label. Pick an identity and see which transmissions carry it.</p>
+
+        <div class="filters" id="filters">
+          <button class="fchip active" data-filter="all">All</button>
+          <button class="fchip" data-filter="feminist">Feminist</button>
+          <button class="fchip" data-filter="queer">Queer</button>
+          <button class="fchip" data-filter="introspective">Introspective</button>
+          <button class="fchip" data-filter="party">Party</button>
+          <button class="fchip" data-filter="futuristic">Futuristic</button>
+          <button class="fchip" data-filter="mental-health">Mental health</button>
+          <button class="fchip" data-filter="power">Power</button>
+          <button class="fchip" data-filter="dance">Dance</button>
+          <button class="fchip" data-filter="relaxing">Relaxing</button>
+          <button class="fchip" data-filter="love">Love</button>
+          <button class="fchip" data-filter="dark">Dark</button>
+          <button class="fchip" data-filter="space">Space</button>
+        </div>
+
+        <div class="disco" id="disco">
+          <a class="song" data-tags="feminist drag-queen introspective party" href="https://distrokid.com/hyperfollow/neonlyra/pink-lemonade">
+            <span class="t">Pink Lemonade</span>
+            <span class="tags"><span class="tag">Feminist</span><span class="tag">Drag queen</span><span class="tag">Introspective</span><span class="tag">Party</span></span>
+          </a>
+          <a class="song" data-tags="futuristic introspective dark mental-health" href="https://youtu.be/al_rXudCCOM?si=ylcYmk1-mJWKRwEG">
+            <span class="t">Trapped in Steel</span>
+            <span class="tags"><span class="tag">Futuristic</span><span class="tag">Introspective</span><span class="tag">Dark</span><span class="tag">Mental health</span></span>
+          </a>
+          <a class="song" data-tags="futuristic feminist power" href="https://open.spotify.com/artist/214mPBUKBjxZOS77kDp3WM">
+            <span class="t">Rise of the Machine Queen</span>
+            <span class="tags"><span class="tag">Futuristic</span><span class="tag">Feminist</span><span class="tag">Power</span></span>
+          </a>
+          <a class="song" data-tags="introspective loneliness futuristic" href="https://open.spotify.com/artist/214mPBUKBjxZOS77kDp3WM">
+            <span class="t">Code of Loneliness</span>
+            <span class="tags"><span class="tag">Introspective</span><span class="tag">Loneliness</span><span class="tag">Futuristic</span></span>
+          </a>
+          <a class="song" data-tags="futuristic space party" href="https://open.spotify.com/artist/214mPBUKBjxZOS77kDp3WM">
+            <span class="t">Red Dirt Road (Mars Vacation)</span>
+            <span class="tags"><span class="tag">Futuristic</span><span class="tag">Space</span><span class="tag">Party</span></span>
+          </a>
+          <a class="song" data-tags="queer love relaxing nostalgic" href="https://open.spotify.com/artist/214mPBUKBjxZOS77kDp3WM">
+            <span class="t">Sunday Mornings</span>
+            <span class="tags"><span class="tag">Queer</span><span class="tag">Love</span><span class="tag">Relaxing</span><span class="tag">Nostalgic</span></span>
+          </a>
+          <a class="song" data-tags="queer party dance" href="https://open.spotify.com/artist/214mPBUKBjxZOS77kDp3WM">
+            <span class="t">Funky Love</span>
+            <span class="tags"><span class="tag">Queer</span><span class="tag">Party</span><span class="tag">Dance</span></span>
+          </a>
+          <a class="song" data-tags="feminist power introspective mental-health" href="https://open.spotify.com/artist/214mPBUKBjxZOS77kDp3WM">
+            <span class="t">Battle Cry</span>
+            <span class="tags"><span class="tag">Feminist</span><span class="tag">Power</span><span class="tag">Introspective</span><span class="tag">Mental health</span></span>
+          </a>
+          <a class="song" data-tags="party queer arty" href="https://open.spotify.com/artist/214mPBUKBjxZOS77kDp3WM">
+            <span class="t">Glitter in the Hookah Smoke</span>
+            <span class="tags"><span class="tag">Party</span><span class="tag">Queer</span><span class="tag">Arty</span></span>
+          </a>
+          <a class="song" data-tags="queer lust dance" href="https://distrokid.com/hyperfollow/neonlyra/trick-of-the-night">
+            <span class="t">Trick of the Night</span>
+            <span class="tags"><span class="tag">Queer</span><span class="tag">Lust</span><span class="tag">Dance</span></span>
+          </a>
+          <a class="song" data-tags="introspective relaxing mental-health" href="https://distrokid.com/hyperfollow/neonlyra/soft-places-to-land">
+            <span class="t">Soft Places to Land</span>
+            <span class="tags"><span class="tag">Introspective</span><span class="tag">Relaxing</span><span class="tag">Mental health</span></span>
+          </a>
+        </div>
+        <div class="disco-count" id="disco-count"></div>
+      </div>
+    </section>
+
+    <!-- ABOUT — indexable prose for Google & AI search.
+         ✏️ EDIT freely, but keep it factual: this is what gets quoted. -->
+    <section class="panel left" id="about">
+      <div class="card reveal">
+        <p class="eyebrow">About</p>
+        <h2>Who is <em>Neon Lyra?</em></h2>
+        <p class="body" style="margin-bottom:16px;">
+          Neon Lyra is an AI music artist based in the Netherlands, founded in 2024. The project
+          makes futuristic pop — electronic music that ranges from introspective synth-pop to
+          queer cosmic club tracks and cyberpunk. Every release is created and published by
+          Neon Lyra as an openly AI-assisted project, with the use of AI disclosed on every
+          release, and distributed to Spotify, Apple Music, YouTube Music and all other major
+          streaming platforms.
+        </p>
+        <p class="body" style="margin-bottom:16px;">
+          The music is built around one imagined place: a pink planet — tender science fiction
+          with dual moons, reflective visors and pastel landscapes. Three voices broadcast from
+          it. The Artist Philosopher is introspective and half-dreaming, writing about feminism
+          and mental health. The Party Queen brings LGBT+ cosmic club energy, bright enough to
+          cross the dark. The Science Nerd is machines with feminine energy — futuristic space
+          vibes. Most songs carry more than one of these identities at once.
+        </p>
+        <p class="body">
+          Releases include “Pink Lemonade”, a dark-playful electro art-pop track; “Trapped in
+          Steel” and “Rise of the Machine Queen”, cyberpunk songs; “Sunday Mornings” and
+          “Soft Places to Land”, softer introspective tracks; and queer dance songs like
+          “Trick of the Night” and “Funky Love”. New music is released regularly.
+        </p>
+      </div>
+    </section>
+
+    <!-- FAQ — clear Q&A text is what AI search engines quote most. -->
+    <section class="panel right" id="faq">
+      <div class="card reveal">
+        <p class="eyebrow">Questions</p>
+        <h2>The <em>short answers</em></h2>
+        <div class="faq-item">
+          <div class="q">What kind of music does Neon Lyra make?</div>
+          <p class="body">Futuristic pop: introspective synth-pop, queer cosmic club and dance tracks, and cyberpunk — music from an imagined pink planet.</p>
+        </div>
+        <div class="faq-item">
+          <div class="q">Is Neon Lyra an AI artist?</div>
+          <p class="body">Yes. Neon Lyra is an openly AI-assisted music project. The use of AI is disclosed on every release. The songwriting choices, production decisions, artwork direction and world-building are human-led.</p>
+        </div>
+        <div class="faq-item">
+          <div class="q">Where can I listen?</div>
+          <p class="body">On Spotify, Apple Music, YouTube Music and YouTube, and all other major streaming platforms. The official website is neonlyra.com.</p>
+        </div>
+        <div class="faq-item">
+          <div class="q">When did Neon Lyra start?</div>
+          <p class="body">The project began in 2024 and releases music on all major streaming platforms.</p>
         </div>
       </div>
     </section>
@@ -381,6 +565,15 @@
       /* personas panel: text RIGHT → planet drifts LEFT */
         .to(camera.position, { x:4.6, y:2.1, z:10, ease:'none' })
         .to(look, { x:4.2, y:0.8, z:0, ease:'none' }, '<')
+      /* discography: rise above the planet — wide card in the centre */
+        .to(camera.position, { x:0, y:7, z:15, ease:'none' })
+        .to(look, { x:0, y:-1, z:0, ease:'none' }, '<')
+      /* about: descend to the left, planet drifts right */
+        .to(camera.position, { x:-5, y:0.5, z:11, ease:'none' })
+        .to(look, { x:-4.5, y:0.4, z:0, ease:'none' }, '<')
+      /* faq: swing to the right, planet drifts left */
+        .to(camera.position, { x:5, y:1.6, z:10.5, ease:'none' })
+        .to(look, { x:4.4, y:0.7, z:0, ease:'none' }, '<')
       /* listen: pull back to a wide, calm vista */
         .to(camera.position, { x:0, y:5, z:24, ease:'none' })
         .to(look, { x:0, y:0, z:0, ease:'none' }, '<');
@@ -436,6 +629,28 @@
     if(document.readyState === 'complete'){ hideLoader(); }
     else { window.addEventListener('load', ()=> setTimeout(hideLoader, 300)); }
     setTimeout(hideLoader, 3000);
+
+    /* ---------- discography identity filter ---------- */
+    const chips = document.querySelectorAll('#filters .fchip');
+    const songs = document.querySelectorAll('#disco .song');
+    const countEl = document.getElementById('disco-count');
+    function applyFilter(f){
+      let shown = 0;
+      songs.forEach(s=>{
+        const match = f==='all' || s.dataset.tags.split(' ').includes(f);
+        s.classList.toggle('hide', !match);
+        if(match) shown++;
+      });
+      if(countEl) countEl.textContent = shown === songs.length
+        ? songs.length + ' transmissions'
+        : shown + ' of ' + songs.length + ' transmissions';
+    }
+    chips.forEach(c=>c.addEventListener('click', ()=>{
+      chips.forEach(x=>x.classList.remove('active'));
+      c.classList.add('active');
+      applyFilter(c.dataset.filter);
+    }));
+    if(songs.length) applyFilter('all');
 
     document.getElementById('yr').textContent = new Date().getFullYear();
   })();
