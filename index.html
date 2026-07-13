@@ -4,23 +4,24 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Neon Lyra — soft futuristic music from a pink planet</title>
-<meta name="description" content="Neon Lyra is an AI music artist creating soft futuristic music from a pink planet. Listen on Spotify, YouTube, and Apple Music.">
+<meta name="description" content="Enter the pink planet: the cinematic home of Neon Lyra, AI music artist. Soft futuristic music, three personas, one voice.">
 
 <!-- ============================================================
-     STRUCTURED DATA — this is your search-disambiguation anchor.
-     The "sameAs" links are what tell Google which Neon Lyra this is.
-     >>> REPLACE the placeholder URLs below with your real profiles. <<<
+     ✏️  HOW TO EDIT: change words between > and < .
+     Replace anything that says YOUR_... with your real links.
+     Ignore the <style> and <script> sections — that's the design
+     and the 3D world. The ✏️ EDIT comments mark the useful spots.
      ============================================================ -->
+
+<!-- Structured data — your search identity anchor -->
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "MusicGroup",
   "name": "Neon Lyra",
-  "alternateName": "Neon Lyra (AI music artist)",
   "description": "AI music artist creating soft futuristic music from a pink planet.",
-  "genre": ["electronic", "synth-pop", "ambient pop", "futuristic pop"],
-  "url": "https://YOUR-DOMAIN.com",
-  "image": "https://YOUR-DOMAIN.com/neon-lyra-cover.jpg",
+  "genre": ["electronic", "synth-pop", "ambient pop"],
+  "url": "https://neonlyra.com",
   "sameAs": [
     "https://open.spotify.com/artist/YOUR_SPOTIFY_ARTIST_ID",
     "https://music.youtube.com/channel/YOUR_OAC_CHANNEL_ID",
@@ -32,447 +33,412 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@300;400;500;600;700&family=Mulish:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&family=Mulish:wght@300;400;500;600&display=swap" rel="stylesheet">
 
 <style>
   :root{
-    --space:        #160d1e;
-    --space-2:      #1f1330;
-    --space-3:      #2a1840;
-    --pink:         #f6c9dd;
-    --pink-bright:  #ffdcec;
-    --rose:         #e08cb0;
-    --magenta:      #ff8fc4;
-    --lilac:        #c4b3e6;
-    --chrome:       #d8cdf0;
-    --starlight:    #fbf2f8;
-    --muted:        #b79fc2;
-    --maxw:         1080px;
+    --space:#150c1e; --space-2:#20122f;
+    --pink:#f6c9dd; --pink-bright:#ffdcec; --rose:#e08cb0;
+    --magenta:#ff8fc4; --lilac:#c4b3e6; --starlight:#fbf2f8; --muted:#c2a9ce;
+    --glass:rgba(24,13,36,.58); --glass-edge:rgba(246,201,221,.16);
   }
-
   *{ box-sizing:border-box; margin:0; padding:0; }
-
   html{ scroll-behavior:smooth; }
-
   body{
-    font-family:'Mulish', sans-serif;
-    background:
-      radial-gradient(140% 80% at 50% -10%, #3a1d52 0%, rgba(58,29,82,0) 55%),
-      linear-gradient(180deg, #160d1e 0%, #1c1228 40%, #221435 100%);
-    background-attachment:fixed;
-    color:var(--starlight);
-    line-height:1.65;
-    overflow-x:hidden;
-    -webkit-font-smoothing:antialiased;
+    font-family:'Mulish',sans-serif; color:var(--starlight);
+    background:linear-gradient(180deg,#150c1e 0%,#1c1029 45%,#241536 100%);
+    overflow-x:hidden; -webkit-font-smoothing:antialiased;
   }
 
-  /* faint, soft starfield — kept low-contrast to stay "soft", not harsh */
-  body::before{
-    content:"";
-    position:fixed; inset:0; z-index:0; pointer-events:none;
-    background-image:
-      radial-gradient(1px 1px at 20% 30%, rgba(251,242,248,.6), transparent),
-      radial-gradient(1px 1px at 70% 18%, rgba(251,242,248,.45), transparent),
-      radial-gradient(1px 1px at 85% 60%, rgba(196,179,230,.5), transparent),
-      radial-gradient(1px 1px at 35% 75%, rgba(251,242,248,.4), transparent),
-      radial-gradient(1px 1px at 12% 85%, rgba(224,140,176,.4), transparent),
-      radial-gradient(1px 1px at 55% 50%, rgba(251,242,248,.35), transparent);
-    opacity:.7;
+  /* ---- layers: 3D canvas (0) → vignette (1) → content (2) ---- */
+  #bg{ position:fixed; inset:0; z-index:0; }
+  #bg canvas{ display:block; }
+  .vignette{
+    position:fixed; inset:0; z-index:1; pointer-events:none;
+    background:radial-gradient(120% 90% at 50% 45%, transparent 55%, rgba(13,7,20,.55) 100%);
+  }
+  #scroll{ position:relative; z-index:2; }
+
+  /* ---- brand mark ---- */
+  .mark{
+    position:fixed; top:26px; left:30px; z-index:3;
+    font-family:'Josefin Sans',sans-serif; font-weight:600;
+    letter-spacing:.32em; text-transform:uppercase; font-size:.78rem;
+    color:var(--pink); text-shadow:0 2px 16px rgba(13,7,20,.8);
   }
 
-  .wrap{ width:100%; max-width:var(--maxw); margin:0 auto; padding:0 28px; position:relative; z-index:1; }
+  /* ---- panels ---- */
+  .panel{ min-height:100vh; display:flex; align-items:center; padding:12vh 7vw; position:relative; }
+  .panel.center{ justify-content:center; text-align:center; }
+  .panel.left{ justify-content:flex-start; }
+  .panel.right{ justify-content:flex-end; }
 
-  /* ---------- nav ---------- */
-  .nav{
-    position:relative; z-index:3;
-    display:flex; align-items:center; justify-content:space-between;
-    padding:26px 28px; max-width:var(--maxw); margin:0 auto;
+  /* THE FIX — every text block lives on frosted glass.
+     Words stay readable no matter what the planet does behind them. */
+  .card{
+    max-width:600px;
+    background:linear-gradient(165deg, var(--glass), rgba(20,11,31,.42));
+    -webkit-backdrop-filter:blur(18px) saturate(1.25);
+    backdrop-filter:blur(18px) saturate(1.25);
+    border:1px solid var(--glass-edge);
+    border-radius:26px;
+    padding:52px 50px;
+    box-shadow:0 24px 70px rgba(10,5,16,.55), inset 0 1px 0 rgba(255,220,236,.08);
   }
-  .nav .mark{
-    font-family:'Josefin Sans', sans-serif;
-    font-weight:600; letter-spacing:.32em; text-transform:uppercase;
-    font-size:.82rem; color:var(--pink);
-  }
-  .nav .links{ display:flex; gap:26px; }
-  .nav .links a{
-    font-size:.78rem; letter-spacing:.14em; text-transform:uppercase;
-    color:var(--muted); text-decoration:none; transition:color .25s ease;
-  }
-  .nav .links a:hover{ color:var(--pink-bright); }
-
-  /* ---------- hero ---------- */
-  .hero{
-    position:relative; z-index:1;
-    min-height:88vh;
-    display:flex; flex-direction:column; align-items:center; justify-content:center;
-    text-align:center; padding:40px 28px 80px;
+  /* graceful fallback if a browser lacks backdrop-filter: darker solid glass */
+  @supports not (backdrop-filter:blur(1px)){
+    .card{ background:rgba(22,12,33,.9); }
   }
 
-  .planet-stage{
-    position:relative;
-    width:min(60vw, 360px); aspect-ratio:1;
-    margin-bottom:48px;
-  }
-  .planet-glow{
-    position:absolute; inset:-40%;
-    border-radius:50%;
-    background:radial-gradient(circle at 50% 50%, rgba(255,143,196,.42) 0%, rgba(224,140,176,.18) 35%, rgba(196,179,230,0) 70%);
-    filter:blur(14px);
-    animation:breathe 9s ease-in-out infinite;
-  }
-  .planet{
-    position:absolute; inset:0; border-radius:50%;
-    background:
-      radial-gradient(circle at 34% 30%, #ffe3ef 0%, #ffc6df 18%, #f29ec3 42%, #d873a4 68%, #9d4f86 100%);
-    box-shadow:
-      inset -22px -26px 60px rgba(80,30,80,.55),
-      inset 16px 18px 40px rgba(255,231,243,.55),
-      0 0 60px rgba(255,143,196,.35);
-  }
-  /* soft atmospheric ring */
-  .planet-ring{
-    position:absolute; inset:-12%;
-    border-radius:50%;
-    border:1px solid rgba(246,201,221,.25);
-    box-shadow:0 0 30px rgba(246,201,221,.15);
+  .hero-stage{ display:flex; flex-direction:column; align-items:center; }
+  .hero-card{ background:none; border:none; box-shadow:none; -webkit-backdrop-filter:none; backdrop-filter:none; padding:0; position:relative; }
+  /* soft scrim halo behind the title so it reads over the planet */
+  .hero-card::before{
+    content:""; position:absolute; inset:-18% -30%;
+    background:radial-gradient(60% 60% at 50% 50%, rgba(13,7,20,.62), transparent 70%);
+    z-index:-1; border-radius:50%;
   }
 
-  .hero h1{
-    font-family:'Josefin Sans', sans-serif;
-    font-weight:300;
-    font-size:clamp(3rem, 12vw, 6.6rem);
-    letter-spacing:.04em;
-    line-height:.98;
-    background:linear-gradient(105deg, #ffdcec 0%, #ff8fc4 38%, #e08cb0 60%, #c4b3e6 100%);
-    -webkit-background-clip:text; background-clip:text;
-    color:transparent;
-    margin-bottom:22px;
-  }
-  .hero .tagline{
-    font-family:'Mulish', sans-serif;
-    font-weight:300;
-    font-size:clamp(1rem, 2.6vw, 1.32rem);
-    letter-spacing:.05em;
-    color:var(--pink);
-    opacity:.92;
-  }
-  .hero .cta-row{ margin-top:42px; display:flex; gap:16px; flex-wrap:wrap; justify-content:center; }
-
-  .btn{
-    font-family:'Josefin Sans', sans-serif;
-    font-weight:500; letter-spacing:.16em; text-transform:uppercase; font-size:.8rem;
-    text-decoration:none; padding:14px 30px; border-radius:40px;
-    transition:transform .25s ease, box-shadow .25s ease, background .25s ease;
-    display:inline-block;
-  }
-  .btn-primary{
-    color:#2a1031;
-    background:linear-gradient(100deg, #ffdcec, #ff9fcb 55%, #e08cb0);
-    box-shadow:0 6px 24px rgba(255,143,196,.32);
-  }
-  .btn-primary:hover{ transform:translateY(-2px); box-shadow:0 10px 30px rgba(255,143,196,.45); }
-  .btn-ghost{
-    color:var(--pink); border:1px solid rgba(246,201,221,.4); background:transparent;
-  }
-  .btn-ghost:hover{ background:rgba(246,201,221,.08); transform:translateY(-2px); }
-
-  /* ---------- section shells ---------- */
-  .section{ padding:96px 0; position:relative; z-index:1; }
   .eyebrow{
-    font-family:'Josefin Sans', sans-serif;
-    font-weight:600; letter-spacing:.34em; text-transform:uppercase;
-    font-size:.74rem; color:var(--rose); margin-bottom:18px;
+    font-family:'Josefin Sans',sans-serif; font-weight:600;
+    letter-spacing:.34em; text-transform:uppercase; font-size:.7rem;
+    color:var(--rose); margin-bottom:18px;
   }
-  .section-title{
-    font-family:'Josefin Sans', sans-serif;
-    font-weight:300; font-size:clamp(1.9rem, 5vw, 3rem);
-    letter-spacing:.02em; line-height:1.08; margin-bottom:14px; color:var(--starlight);
+  h1{
+    font-family:'Josefin Sans',sans-serif; font-weight:300;
+    font-size:clamp(3.2rem,13vw,7.4rem); line-height:.96; letter-spacing:.03em;
+    background:linear-gradient(105deg,#ffe3ef 0%,#ff9fcb 42%,#c4b3e6 100%);
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+    filter:drop-shadow(0 4px 30px rgba(13,7,20,.85)) drop-shadow(0 0 42px rgba(255,143,196,.28));
+    margin-bottom:20px;
   }
-  .section-intro{
-    max-width:560px; color:var(--muted); font-weight:300;
-    font-size:1.02rem; margin-bottom:52px;
+  h2{
+    font-family:'Josefin Sans',sans-serif; font-weight:300;
+    font-size:clamp(1.9rem,5vw,3rem); line-height:1.08; letter-spacing:.02em;
+    color:var(--starlight); margin-bottom:16px;
   }
+  h2 em{ font-style:italic; color:var(--pink-bright); }
+  .tagline{
+    font-weight:300; font-size:clamp(1rem,2.6vw,1.35rem); color:var(--pink-bright);
+    letter-spacing:.06em; text-shadow:0 2px 20px rgba(13,7,20,.9);
+  }
+  p.body{ color:var(--starlight); font-weight:300; font-size:1.03rem; line-height:1.75; opacity:.92; }
 
-  /* ---------- tracks ---------- */
-  .tracks{ display:grid; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr)); gap:22px; }
-  .track{
-    background:linear-gradient(160deg, rgba(42,24,64,.7), rgba(31,19,48,.55));
-    border:1px solid rgba(246,201,221,.12);
-    border-radius:20px; padding:30px 28px;
-    transition:transform .3s ease, border-color .3s ease, box-shadow .3s ease;
+  /* tracks */
+  .tracklist{ margin-top:30px; display:flex; flex-direction:column; gap:6px; }
+  .trk{
+    display:flex; align-items:baseline; justify-content:space-between; gap:18px;
+    padding:16px 4px; border-bottom:1px solid rgba(246,201,221,.14);
+    text-decoration:none; transition:padding-left .3s ease, border-color .3s ease;
   }
-  .track:hover{
-    transform:translateY(-4px);
-    border-color:rgba(255,143,196,.4);
-    box-shadow:0 14px 36px rgba(20,8,30,.5);
-  }
-  .track .num{
-    font-family:'Josefin Sans', sans-serif; font-weight:600;
-    font-size:.82rem; letter-spacing:.2em; color:var(--rose); opacity:.7;
-  }
-  .track h3{
-    font-family:'Josefin Sans', sans-serif; font-weight:400;
-    font-size:1.5rem; letter-spacing:.01em; margin:14px 0 8px; color:var(--pink-bright);
-  }
-  .track .mood{ font-size:.82rem; letter-spacing:.12em; text-transform:uppercase; color:var(--lilac); margin-bottom:14px; }
-  .track p{ color:var(--muted); font-weight:300; font-size:.96rem; margin-bottom:22px; }
-  .track a.play{
-    font-family:'Josefin Sans', sans-serif; font-weight:500;
-    font-size:.78rem; letter-spacing:.16em; text-transform:uppercase;
-    color:var(--pink); text-decoration:none; border-bottom:1px solid rgba(246,201,221,.3);
-    padding-bottom:3px; transition:color .25s ease, border-color .25s ease;
-  }
-  .track a.play:hover{ color:var(--pink-bright); border-color:var(--pink-bright); }
+  .trk:hover{ padding-left:12px; border-color:rgba(255,143,196,.5); }
+  .trk .t{ font-family:'Josefin Sans',sans-serif; font-size:1.32rem; color:var(--pink-bright); }
+  .trk .m{ font-size:.72rem; letter-spacing:.16em; text-transform:uppercase; color:var(--lilac); white-space:nowrap; }
 
-  /* ---------- personas spectrum (signature element) ---------- */
-  .spectrum{ display:grid; grid-template-columns:repeat(3, 1fr); gap:0; border-radius:24px; overflow:hidden; border:1px solid rgba(246,201,221,.14); }
-  .persona{ padding:44px 34px; position:relative; min-height:300px; display:flex; flex-direction:column; justify-content:flex-end; }
-  .persona-1{ background:linear-gradient(180deg, rgba(255,220,236,.10), rgba(246,201,221,.04)); }
-  .persona-2{ background:linear-gradient(180deg, rgba(255,143,196,.16), rgba(224,140,176,.05)); }
-  .persona-3{ background:linear-gradient(180deg, rgba(196,179,230,.16), rgba(150,120,210,.05)); }
-  .persona .dot{ width:42px; height:42px; border-radius:50%; margin-bottom:auto; }
-  .persona-1 .dot{ background:radial-gradient(circle at 35% 30%, #ffe3ef, #f6c9dd 60%, #e0a8c4); box-shadow:0 0 22px rgba(246,201,221,.5); }
-  .persona-2 .dot{ background:radial-gradient(circle at 35% 30%, #ffc6e2, #ff8fc4 60%, #d8629c); box-shadow:0 0 22px rgba(255,143,196,.55); }
-  .persona-3 .dot{ background:radial-gradient(circle at 35% 30%, #e6dcfa, #c4b3e6 60%, #9b86d4); box-shadow:0 0 22px rgba(196,179,230,.55); }
-  .persona h3{
-    font-family:'Josefin Sans', sans-serif; font-weight:400;
-    font-size:1.42rem; letter-spacing:.02em; margin:28px 0 10px; color:var(--starlight);
-  }
-  .persona p{ color:var(--muted); font-weight:300; font-size:.94rem; }
+  /* personas */
+  .spectrum{ margin-top:30px; display:flex; flex-direction:column; gap:18px; }
+  .pers{ display:flex; gap:16px; align-items:flex-start; }
+  .pers .dot{ flex:none; width:14px; height:14px; border-radius:50%; margin-top:6px; }
+  .pers.a .dot{ background:#ffdcec; box-shadow:0 0 14px rgba(255,220,236,.8); }
+  .pers.b .dot{ background:#ff8fc4; box-shadow:0 0 14px rgba(255,143,196,.9); }
+  .pers.c .dot{ background:#c4b3e6; box-shadow:0 0 14px rgba(196,179,230,.9); }
+  .pers .n{ font-family:'Josefin Sans',sans-serif; font-size:1.15rem; color:var(--starlight); }
+  .pers .d{ color:var(--muted); font-weight:300; font-size:.95rem; }
 
-  /* ---------- about ---------- */
-  .about-grid{ display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:center; }
-  .about-copy p{ color:var(--pink); font-weight:300; font-size:1.12rem; margin-bottom:20px; line-height:1.8; }
-  .about-copy p.lead{
-    font-family:'Josefin Sans', sans-serif; font-weight:300;
-    font-size:clamp(1.4rem, 3.4vw, 2rem); color:var(--starlight); line-height:1.4; letter-spacing:.01em;
-  }
-  .about-note{ font-size:.86rem; color:var(--muted); border-left:2px solid rgba(224,140,176,.4); padding-left:16px; margin-top:30px; }
-  .about-visual{
-    aspect-ratio:1; border-radius:24px;
-    background:
-      radial-gradient(circle at 60% 35%, #ffd9ea 0%, #ff9fcb 30%, #c98ab8 60%, #6a4f86 100%);
-    box-shadow:inset -20px -24px 60px rgba(60,20,70,.5), 0 16px 50px rgba(20,8,30,.5);
-    position:relative; overflow:hidden;
-  }
-  .about-visual::after{
-    content:""; position:absolute; inset:0;
-    background:radial-gradient(circle at 30% 80%, rgba(196,179,230,.4), transparent 50%);
-  }
-
-  /* ---------- listen bar ---------- */
-  .listen{ text-align:center; }
-  .listen .platforms{ display:flex; gap:14px; flex-wrap:wrap; justify-content:center; margin-top:6px; }
+  /* listen buttons */
+  .platforms{ margin-top:30px; display:flex; gap:12px; flex-wrap:wrap; justify-content:center; }
   .platforms a{
-    font-family:'Josefin Sans', sans-serif; font-weight:500;
-    letter-spacing:.14em; text-transform:uppercase; font-size:.8rem;
-    color:var(--starlight); text-decoration:none;
-    padding:14px 26px; border-radius:40px;
-    border:1px solid rgba(246,201,221,.22);
-    transition:background .25s ease, border-color .25s ease, transform .25s ease;
+    font-family:'Josefin Sans',sans-serif; font-weight:500; letter-spacing:.14em;
+    text-transform:uppercase; font-size:.8rem; color:#2a1031; text-decoration:none;
+    padding:14px 28px; border-radius:40px;
+    background:linear-gradient(100deg,#ffdcec,#ff9fcb 55%,#e08cb0);
+    box-shadow:0 6px 24px rgba(255,143,196,.3);
+    transition:transform .25s ease, box-shadow .25s ease;
   }
-  .platforms a:hover{ background:rgba(246,201,221,.1); border-color:rgba(246,201,221,.5); transform:translateY(-2px); }
-
-  /* ---------- footer ---------- */
-  footer{ padding:60px 0 50px; text-align:center; position:relative; z-index:1; border-top:1px solid rgba(246,201,221,.1); margin-top:40px; }
-  footer .fmark{
-    font-family:'Josefin Sans', sans-serif; font-weight:600;
-    letter-spacing:.3em; text-transform:uppercase; font-size:.85rem; color:var(--pink); margin-bottom:14px;
+  .platforms a:hover{ transform:translateY(-2px); box-shadow:0 10px 32px rgba(255,143,196,.45); }
+  .platforms a.ghost{
+    background:transparent; color:var(--pink); border:1px solid rgba(246,201,221,.4); box-shadow:none;
   }
-  footer p{ color:var(--muted); font-size:.82rem; font-weight:300; }
-  footer .from{ color:var(--rose); font-style:italic; margin-top:6px; }
+  .platforms a.ghost:hover{ background:rgba(246,201,221,.08); }
 
-  /* ---------- reveal animation ---------- */
-  .reveal{ opacity:0; transform:translateY(24px); transition:opacity .8s ease, transform .8s ease; }
-  .reveal.in{ opacity:1; transform:none; }
-
-  @keyframes breathe{
-    0%,100%{ transform:scale(1); opacity:.85; }
-    50%{ transform:scale(1.08); opacity:1; }
+  .scrollhint{
+    position:absolute; bottom:34px; left:50%; transform:translateX(-50%);
+    color:var(--pink); font-size:.7rem; letter-spacing:.3em; text-transform:uppercase;
+    text-shadow:0 2px 14px rgba(13,7,20,.9); animation:bob 2.6s ease-in-out infinite;
   }
+  @keyframes bob{ 0%,100%{ transform:translate(-50%,0); opacity:.55; } 50%{ transform:translate(-50%,9px); opacity:1; } }
 
-  /* ---------- responsive ---------- */
-  @media (max-width:760px){
-    .nav .links{ display:none; }
-    .spectrum{ grid-template-columns:1fr; }
-    .about-grid{ grid-template-columns:1fr; gap:36px; }
-    .about-visual{ max-width:320px; margin:0 auto; width:100%; }
-    .section{ padding:72px 0; }
+  /* loader */
+  .loader{ position:fixed; inset:0; z-index:6; background:#150c1e; display:flex; align-items:center; justify-content:center; transition:opacity .7s ease; }
+  .loader .l{ font-family:'Josefin Sans',sans-serif; letter-spacing:.4em; text-transform:uppercase; font-size:.78rem; color:var(--pink); animation:pulse 1.6s ease-in-out infinite; }
+  @keyframes pulse{ 0%,100%{ opacity:.35; } 50%{ opacity:1; } }
+
+  footer{ position:relative; z-index:2; text-align:center; padding:56px 20px; }
+  footer .fmark{ font-family:'Josefin Sans',sans-serif; letter-spacing:.3em; text-transform:uppercase; color:var(--pink); margin-bottom:10px; font-size:.85rem; }
+  footer p{ color:var(--muted); font-size:.8rem; font-weight:300; }
+  footer .from{ color:var(--rose); font-style:italic; margin-top:4px; }
+
+  /* ---- reveals: content is ALWAYS visible by default.
+         Animation only runs when JS confirms it can (body.js),
+         and it always ends at full opacity. ---- */
+  .js .reveal{ opacity:0; transform:translateY(26px); transition:opacity .9s ease, transform .9s ease; }
+  .js .reveal.in{ opacity:1; transform:none; }
+
+  @media (max-width:680px){
+    .panel{ padding:10vh 6vw; }
+    .card{ padding:38px 30px; }
+    .mark{ left:22px; }
   }
-
   @media (prefers-reduced-motion:reduce){
-    .planet-glow{ animation:none; }
-    .reveal{ transition:none; opacity:1; transform:none; }
+    .js .reveal{ transition:none; opacity:1; transform:none; }
+    .scrollhint{ animation:none; }
     html{ scroll-behavior:auto; }
   }
-
-  a:focus-visible, .btn:focus-visible{ outline:2px solid var(--pink-bright); outline-offset:3px; border-radius:6px; }
+  a:focus-visible{ outline:2px solid var(--pink-bright); outline-offset:3px; border-radius:8px; }
 </style>
 </head>
 <body>
+<script>document.body.classList.add('js');</script>
 
-  <!-- ════════════════════════════════════════════════════════════════
-       ✏️  HOW TO EDIT THIS WEBSITE  (read me first!)
-       ════════════════════════════════════════════════════════════════
-       Everything you'll want to change is BELOW this line, in plain text.
+  <div class="loader" id="loader"><span class="l">entering the pink planet…</span></div>
 
-       1. TEXT & BUTTON LABELS: change the words between  >  and  <
-          Example:   <a class="btn btn-primary" ...>Listen now</a>
-          Change only:                            ^^^^^^^^^^
+  <div id="bg"></div>
+  <div class="vignette"></div>
 
-       2. LINKS: replace anything that says  YOUR_...  or  YOUR-LINK
-          with your real web address, keeping the quote marks "...".
+  <span class="mark">Neon Lyra</span>
 
-       3. SAFE TO IGNORE: the <tags>, the class="..." parts, and the
-          whole <style> section up top (that's just the colours/design).
+  <div id="scroll">
 
-       4. The spots you'll most likely want to edit are marked with
-          a   <!-- ✏️ EDIT ... -->   comment, like signposts.
-
-       Save the file after editing, re-publish (your host does this),
-       and the live site updates. Nothing here can "break" the design.
-       ════════════════════════════════════════════════════════════════ -->
-
-  <nav class="nav">
-    <span class="mark">Neon Lyra</span>
-    <div class="links">
-      <a href="#music">Music</a>
-      <a href="#personas">Personas</a>
-      <a href="#about">About</a>
-      <a href="#listen">Listen</a>
-    </div>
-  </nav>
-
-  <!-- HERO -->
-  <header class="hero">
-    <div class="planet-stage">
-      <div class="planet-ring"></div>
-      <div class="planet-glow"></div>
-      <div class="planet"></div>
-    </div>
-    <!-- ✏️ EDIT: your artist name (the &nbsp; just keeps it on one line) -->
-    <h1>Neon&nbsp;Lyra</h1>
-    <!-- ✏️ EDIT: your tagline -->
-    <p class="tagline">soft futuristic music from a pink planet</p>
-    <div class="cta-row">
-      <!-- ✏️ EDIT: button labels -->
-      <a class="btn btn-primary" href="#listen">Listen now</a>
-      <a class="btn btn-ghost" href="#music">Latest release</a>
-    </div>
-  </header>
-
-  <!-- MUSIC -->
-  <section class="section" id="music">
-    <div class="wrap">
-      <p class="eyebrow reveal">Transmissions</p>
-      <h2 class="section-title reveal">Songs from the pink planet</h2>
-      <p class="section-intro reveal">Signals sent across the dark — soft, electric, somewhere between a dream and a machine.</p>
-
-      <div class="tracks">
-        <!-- ✏️ EDIT a track: change the title, mood label, and description.
-             Replace YOUR-LINK in href="..." with the song's real URL. -->
-        <article class="track reveal">
-          <span class="num">Newest signal</span>
-          <h3>Soft Places to Land</h3>
-          <p class="mood">Soft Planet Muse</p>
-          <p>The latest release — weightless and warm, a slow descent home through pink atmosphere.</p>
-          <!-- REPLACE href with your real link -->
-          <a class="play" href="https://YOUR-LINK/soft-places-to-land">Play ›</a>
-        </article>
-
-        <article class="track reveal">
-          <span class="num">Signal 02</span>
-          <h3>Trapped in Steel</h3>
-          <p class="mood">Machine Queen</p>
-          <p>Chrome and voltage. Where the soft planet turns cold and the beat takes over — pure cyberpunk pulse.</p>
-          <a class="play" href="https://YOUR-LINK/trapped-in-steel">Play ›</a>
-        </article>
-
-        <article class="track reveal">
-          <span class="num">Signal 03</span>
-          <h3>Red Dirt Road</h3>
-          <p class="mood">Mars Vacation</p>
-          <p>A drive across red dust under two moons — wide, wistful, and a little out of this world.</p>
-          <a class="play" href="https://YOUR-LINK/red-dirt-road">Play ›</a>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <!-- PERSONAS (signature) -->
-  <section class="section" id="personas">
-    <div class="wrap">
-      <p class="eyebrow reveal">One voice, three lights</p>
-      <h2 class="section-title reveal">Which Neon Lyra are you hearing?</h2>
-      <p class="section-intro reveal">Every song lands somewhere on the spectrum — from the first soft light, through the bright pull, to the cold machine edge.</p>
-
-      <div class="spectrum reveal">
-        <div class="persona persona-1">
-          <span class="dot"></span>
-          <h3>Soft Planet Muse</h3>
-          <p>The first light. Breathy, weightless, half-dreaming — songs that arrive like dawn over the pink planet.</p>
-        </div>
-        <div class="persona persona-2">
-          <span class="dot"></span>
-          <h3>Pop Siren</h3>
-          <p>The pull. Glossy hooks and neon choruses, bright enough to carry across the dark between stars.</p>
-        </div>
-        <div class="persona persona-3">
-          <span class="dot"></span>
-          <h3>Machine Queen</h3>
-          <p>The edge. Chrome, steel, and current — where soft turns sharp and the machine takes the lead.</p>
+    <!-- HERO -->
+    <section class="panel center">
+      <div class="hero-stage">
+        <div class="card hero-card reveal">
+          <!-- ✏️ EDIT: your name + tagline -->
+          <h1>Neon&nbsp;Lyra</h1>
+          <p class="tagline">soft futuristic music from a pink planet</p>
         </div>
       </div>
-    </div>
-  </section>
+      <div class="scrollhint">scroll to enter</div>
+    </section>
 
-  <!-- ABOUT -->
-  <section class="section" id="about">
-    <div class="wrap">
-      <p class="eyebrow reveal">The planet</p>
-      <div class="about-grid">
-        <div class="about-copy reveal">
-          <p class="lead">Neon Lyra is an AI music artist broadcasting soft futuristic pop from a planet that glows pink.</p>
-          <p>The sound moves between tenderness and chrome — ambient and weightless one moment, electric and sharp the next. Same voice, different light.</p>
-          <p class="about-note">All music is created and released by Neon Lyra as an AI music project, disclosed in line with platform and EU requirements.</p>
+    <!-- MUSIC — text left, planet drifts right -->
+    <section class="panel left">
+      <div class="card reveal">
+        <p class="eyebrow">Transmissions</p>
+        <h2>Songs from the <em>pink planet</em></h2>
+        <p class="body">Signals sent across the dark — soft, electric, somewhere between a dream and a machine.</p>
+        <div class="tracklist">
+          <!-- ✏️ EDIT tracks: title, mood, and the YOUR-LINK addresses -->
+          <a class="trk" href="https://YOUR-LINK/soft-places-to-land"><span class="t">Soft Places to Land</span><span class="m">Soft Planet Muse · newest</span></a>
+          <a class="trk" href="https://YOUR-LINK/trapped-in-steel"><span class="t">Trapped in Steel</span><span class="m">Machine Queen</span></a>
+          <a class="trk" href="https://YOUR-LINK/red-dirt-road"><span class="t">Red Dirt Road</span><span class="m">Mars Vacation</span></a>
         </div>
-        <div class="about-visual reveal" aria-hidden="true"></div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- LISTEN -->
-  <section class="section listen" id="listen">
-    <div class="wrap">
-      <p class="eyebrow reveal">Tune in</p>
-      <h2 class="section-title reveal">Listen everywhere</h2>
-      <p class="section-intro reveal" style="margin-left:auto;margin-right:auto;">Follow Neon Lyra on your platform of choice — the official home for every release.</p>
-      <div class="platforms reveal">
-        <!-- REPLACE each href with your real profile URLs -->
-        <a href="https://open.spotify.com/artist/YOUR_SPOTIFY_ARTIST_ID">Spotify</a>
-        <a href="https://music.youtube.com/channel/YOUR_OAC_CHANNEL_ID">YouTube Music</a>
-        <a href="https://www.youtube.com/@YOUR_YOUTUBE_HANDLE">YouTube</a>
-        <a href="https://music.apple.com/artist/YOUR_APPLE_ARTIST_ID">Apple Music</a>
+    <!-- PERSONAS — text right, planet drifts left -->
+    <section class="panel right">
+      <div class="card reveal">
+        <p class="eyebrow">One voice, three lights</p>
+        <h2>Which Neon Lyra<br>are you <em>hearing?</em></h2>
+        <p class="body">Every song lands somewhere on the spectrum — from the first soft light, through the bright pull, to the cold machine edge.</p>
+        <div class="spectrum">
+          <div class="pers a"><span class="dot"></span><div><div class="n">Soft Planet Muse</div><div class="d">Breathy, weightless, half-dreaming — songs that arrive like dawn.</div></div></div>
+          <div class="pers b"><span class="dot"></span><div><div class="n">Pop Siren</div><div class="d">Glossy hooks and neon choruses, bright enough to cross the dark.</div></div></div>
+          <div class="pers c"><span class="dot"></span><div><div class="n">Machine Queen</div><div class="d">Chrome, steel, and current — where soft turns sharp.</div></div></div>
+        </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <footer>
-    <div class="wrap">
-      <p class="fmark">Neon Lyra</p>
+    <!-- LISTEN -->
+    <section class="panel center">
+      <div class="card reveal" style="text-align:center;">
+        <p class="eyebrow">Tune in</p>
+        <h2>Listen <em>everywhere</em></h2>
+        <p class="body">The official home for every release from the pink planet.</p>
+        <div class="platforms">
+          <!-- ✏️ EDIT: replace with your real profile links -->
+          <a href="https://open.spotify.com/artist/YOUR_SPOTIFY_ARTIST_ID">Spotify</a>
+          <a class="ghost" href="https://music.youtube.com/channel/YOUR_OAC_CHANNEL_ID">YouTube Music</a>
+          <a class="ghost" href="https://www.youtube.com/@YOUR_YOUTUBE_HANDLE">YouTube</a>
+          <a class="ghost" href="https://music.apple.com/artist/YOUR_APPLE_ARTIST_ID">Apple Music</a>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="fmark">Neon Lyra</div>
       <p>© <span id="yr"></span> Neon Lyra. All rights reserved.</p>
       <p class="from">broadcasting from a pink planet</p>
-    </div>
-  </footer>
+    </footer>
+
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 
   <script>
-    document.getElementById('yr').textContent = new Date().getFullYear();
+  (function(){
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const container = document.getElementById('bg');
 
-    // gentle scroll reveal
+    /* ---------- renderer / scene / camera ---------- */
+    const renderer = new THREE.WebGLRenderer({ antialias:true, alpha:true });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.outputEncoding = THREE.sRGBEncoding;
+    container.appendChild(renderer.domElement);
+
+    const scene = new THREE.Scene();
+    scene.fog = new THREE.FogExp2(0x150c1e, 0.011);
+
+    const camera = new THREE.PerspectiveCamera(55, window.innerWidth/window.innerHeight, 0.1, 320);
+    camera.position.set(0, 0.8, 16);
+    const look = { x:0, y:0, z:0 };
+
+    /* ---------- lights ---------- */
+    scene.add(new THREE.AmbientLight(0xff9fcb, 0.5));
+    const key = new THREE.PointLight(0xffd9ea, 2.3, 130); key.position.set(9, 7, 11); scene.add(key);
+    const rim = new THREE.DirectionalLight(0xc4b3e6, 0.85); rim.position.set(-7, -2, -5); scene.add(rim);
+
+    /* ---------- pink planet + atmosphere + ring + moon ---------- */
+    const planet = new THREE.Mesh(
+      new THREE.SphereGeometry(3.2, 64, 64),
+      new THREE.MeshStandardMaterial({ color:0xf29ec3, emissive:0x5a1e56, emissiveIntensity:0.32, roughness:0.72, metalness:0.22 })
+    );
+    scene.add(planet);
+
+    const atm = new THREE.Mesh(
+      new THREE.SphereGeometry(3.2*1.18, 64, 64),
+      new THREE.ShaderMaterial({
+        transparent:true, blending:THREE.AdditiveBlending, side:THREE.BackSide,
+        vertexShader:'varying vec3 vN; void main(){ vN=normalize(normalMatrix*normal); gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.0);}',
+        fragmentShader:'varying vec3 vN; void main(){ float i=pow(0.72-dot(vN,vec3(0.0,0.0,1.0)),2.4); gl_FragColor=vec4(1.0,0.6,0.8,1.0)*i; }'
+      })
+    );
+    scene.add(atm);
+
+    const ring = new THREE.Mesh(
+      new THREE.RingGeometry(4.4, 6.4, 96),
+      new THREE.MeshBasicMaterial({ color:0xf6c9dd, transparent:true, opacity:0.09, side:THREE.DoubleSide, blending:THREE.AdditiveBlending, depthWrite:false })
+    );
+    ring.rotation.x = Math.PI*0.46; ring.rotation.y = 0.2; scene.add(ring);
+
+    const moon = new THREE.Mesh(
+      new THREE.SphereGeometry(0.4, 24, 24),
+      new THREE.MeshStandardMaterial({ color:0xe8d5f0, emissive:0x3a2450, emissiveIntensity:0.4, roughness:0.9 })
+    );
+    scene.add(moon);
+
+    /* ---------- starfield ---------- */
+    const STAR = reduced ? 700 : 1900;
+    const sg = new THREE.BufferGeometry();
+    const sp = new Float32Array(STAR*3), sc = new Float32Array(STAR*3);
+    const palette = [[1,0.86,0.93],[1,0.56,0.77],[0.77,0.7,0.9],[1,1,1]];
+    for(let i=0;i<STAR;i++){
+      const r = 42 + Math.random()*170;
+      const th = Math.random()*Math.PI*2, ph = Math.acos(2*Math.random()-1);
+      sp[i*3]=r*Math.sin(ph)*Math.cos(th); sp[i*3+1]=r*Math.sin(ph)*Math.sin(th); sp[i*3+2]=r*Math.cos(ph);
+      const c = palette[(Math.random()*palette.length)|0];
+      sc[i*3]=c[0]; sc[i*3+1]=c[1]; sc[i*3+2]=c[2];
+    }
+    sg.setAttribute('position', new THREE.BufferAttribute(sp,3));
+    sg.setAttribute('color', new THREE.BufferAttribute(sc,3));
+    const stars = new THREE.Points(sg, new THREE.PointsMaterial({ size:0.65, sizeAttenuation:true, vertexColors:true, transparent:true, opacity:0.9, depthWrite:false }));
+    scene.add(stars);
+
+    /* ---------- space jellies (placeholder creatures — swap for .glb later) ---------- */
+    function makeJelly(color, scale){
+      const g = new THREE.Group();
+      g.add(new THREE.Mesh(
+        new THREE.SphereGeometry(1, 32, 24, 0, Math.PI*2, 0, Math.PI*0.55),
+        new THREE.MeshStandardMaterial({ color, emissive:color, emissiveIntensity:0.5, roughness:0.3, transparent:true, opacity:0.85 })
+      ));
+      const tMat = new THREE.MeshStandardMaterial({ color, emissive:color, emissiveIntensity:0.4, roughness:0.4, transparent:true, opacity:0.6 });
+      for(let i=0;i<7;i++){
+        const a=(i/7)*Math.PI*2, r=0.55, x=Math.cos(a)*r, z=Math.sin(a)*r;
+        const curve = new THREE.CatmullRomCurve3([
+          new THREE.Vector3(x,0,z), new THREE.Vector3(x*1.15,-0.9,z*1.15),
+          new THREE.Vector3(x*0.8,-1.7,z*0.8), new THREE.Vector3(x*1.25,-2.6,z*1.25)
+        ]);
+        g.add(new THREE.Mesh(new THREE.TubeGeometry(curve,22,0.05,8,false), tMat));
+      }
+      g.scale.setScalar(scale);
+      return g;
+    }
+    const jelly = makeJelly(0xff9fcb, 0.9);  jelly.position.set(-6.4, 1.4, -1);  scene.add(jelly);
+    const jelly2 = makeJelly(0xc4b3e6, 0.55); jelly2.position.set(6.8, -2.6, -3.5); scene.add(jelly2);
+
+    /* ---------- scroll choreography — CAMERA ONLY.
+         Text visibility is never controlled by scroll. ---------- */
+    if(!reduced && window.gsap && window.ScrollTrigger){
+      gsap.registerPlugin(ScrollTrigger);
+      const tl = gsap.timeline({ scrollTrigger:{ trigger:'#scroll', start:'top top', end:'bottom bottom', scrub:1 } });
+      /* music panel: text sits LEFT → aim left of the planet so it drifts RIGHT of screen */
+      tl.to(camera.position, { x:-4.5, y:1.2, z:10.5, ease:'none' })
+        .to(look, { x:-4.2, y:0.6, z:0, ease:'none' }, '<')
+      /* personas panel: text RIGHT → planet drifts LEFT */
+        .to(camera.position, { x:4.6, y:2.1, z:10, ease:'none' })
+        .to(look, { x:4.2, y:0.8, z:0, ease:'none' }, '<')
+      /* listen: pull back to a wide, calm vista */
+        .to(camera.position, { x:0, y:5, z:24, ease:'none' })
+        .to(look, { x:0, y:0, z:0, ease:'none' }, '<');
+    } else {
+      camera.position.set(-1, 2, 16);
+    }
+
+    /* ---------- text reveals: IntersectionObserver, one-way, always end visible ---------- */
     const io = new IntersectionObserver((entries)=>{
       entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
-    }, { threshold:0.15 });
+    }, { threshold:0.2 });
     document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+    /* safety net: whatever happens, everything is visible after 2.5s */
+    setTimeout(()=> document.querySelectorAll('.reveal').forEach(el=>el.classList.add('in')), 2500);
+
+    /* ---------- render loop ---------- */
+    const clock = new THREE.Clock();
+    let running = true;
+    function animate(){
+      if(!running) return;
+      requestAnimationFrame(animate);
+      const t = clock.getElapsedTime();
+      planet.rotation.y += 0.001;
+      atm.rotation.y = planet.rotation.y;
+      stars.rotation.y += 0.00016;
+      ring.rotation.z += 0.00035;
+      moon.position.set(Math.cos(t*0.32)*6.2, Math.sin(t*0.32)*1.5, Math.sin(t*0.32)*6.2);
+      jelly.position.y  = 1.4  + Math.sin(t*0.8)*0.35;  jelly.rotation.y  += 0.003;
+      jelly2.position.y = -2.6 + Math.cos(t*0.6)*0.4;   jelly2.rotation.y -= 0.004;
+      camera.lookAt(look.x, look.y, look.z);
+      renderer.render(scene, camera);
+    }
+    animate();
+
+    document.addEventListener('visibilitychange', ()=>{
+      running = !document.hidden;
+      if(running){ clock.start(); animate(); }
+    });
+
+    window.addEventListener('resize', ()=>{
+      camera.aspect = window.innerWidth/window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+
+    /* loader: hides on load, with a hard fallback so it can never stick */
+    function hideLoader(){
+      const l = document.getElementById('loader');
+      if(!l) return;
+      l.style.opacity = '0';
+      setTimeout(()=> l.style.display='none', 750);
+    }
+    if(document.readyState === 'complete'){ hideLoader(); }
+    else { window.addEventListener('load', ()=> setTimeout(hideLoader, 300)); }
+    setTimeout(hideLoader, 3000);
+
+    document.getElementById('yr').textContent = new Date().getFullYear();
+  })();
   </script>
 
 </body>
