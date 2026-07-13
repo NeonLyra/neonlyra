@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Neon Lyra — Futuristic music from a pink planet</title>
+<meta name="description" content="Enter the pink planet: the cinematic home of Neon Lyra, AI music artist. Soft futuristic music, three personas, one voice.">
+
+<!-- ============================================================
+     ✏️  HOW TO EDIT: change words between > and < .
+     Replace anything that says YOUR_... with your real links.
+     Ignore the <style> and <script> sections — that's the design
+     and the 3D world. The ✏️ EDIT comments mark the useful spots.
+     ============================================================ -->
+
+<!-- Structured data — your search identity anchor -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "MusicGroup",
+  "name": "Neon Lyra",
+  "description": "Neon Lyra is an AI music artist based in the Netherlands, founded in 2024, making futuristic pop — from introspective synth-pop to queer cosmic club tracks and cyberpunk — set on an imagined pink planet.",
+  "foundingDate": "2024",
+  "foundingLocation": { "@type": "Country", "name": "Netherlands" },
+  "genre": ["electronic", "synth-pop", "electropop", "ambient pop", "cyberpunk", "dance"],
+  "url": "https://neonlyra.com",
+  "sameAs": [
+    "https://open.spotify.com/artist/214mPBUKBjxZOS77kDp3WM",
+    "https://music.youtube.com/channel/UC-nJ0w-FyFwO5KUStmCe4Kw",
+    "https://www.youtube.com/@NeonLyra-x4n",
+    "https://music.apple.com/artist/1794814168"
+  ],
+  "track": [
+    { "@type": "MusicRecording", "name": "Pink Lemonade", "byArtist": { "@type": "MusicGroup", "name": "Neon Lyra" } },
+    { "@type": "MusicRecording", "name": "Trapped in Steel", "byArtist": { "@type": "MusicGroup", "name": "Neon Lyra" } },
+    { "@type": "MusicRecording", "name": "Rise of the Machine Queen", "byArtist": { "@type": "MusicGroup", "name": "Neon Lyra" } },
+    { "@type": "MusicRecording", "name": "Code of Loneliness", "byArtist": { "@type": "MusicGroup", "name": "Neon Lyra" } },
+    { "@type": "MusicRecording", "name": "Red Dirt Road (Mars Vacation)", "byArtist": { "@type": "MusicGroup", "name": "Neon Lyra" } },
+    { "@type": "MusicRecording", "name": "Sunday Mornings", "byArtist": { "@type": "MusicGroup", "name": "Neon Lyra" } },
+    { "@type": "MusicRecording", "name": "Funky Love", "byArtist": { "@type": "MusicGroup", "name": "Neon Lyra" } },
+    { "@type": "MusicRecording", "name": "Battle Cry", "byArtist": { "@type": "MusicGroup", "name": "Neon Lyra" } },
+    { "@type": "MusicRecording", "name": "Glitter in the Hookah Smoke", "byArtist": { "@type": "MusicGroup", "name": "Neon Lyra" } },
+    { "@type": "MusicRecording", "name": "Trick of the Night", "byArtist": { "@type": "MusicGroup", "name": "Neon Lyra" } },
+    { "@type": "MusicRecording", "name": "Soft Places to Land", "byArtist": { "@type": "MusicGroup", "name": "Neon Lyra" } }
+  ]
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&family=Mulish:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --space:#150c1e; --space-2:#20122f;
+    --pink:#f6c9dd; --pink-bright:#ffdcec; --rose:#e08cb0;
+    --magenta:#ff8fc4; --lilac:#c4b3e6; --starlight:#fbf2f8; --muted:#c2a9ce;
+    --glass:rgba(24,13,36,.58); --glass-edge:rgba(246,201,221,.16);
+  }
+  *{ box-sizing:border-box; margin:0; padding:0; }
+  html{ scroll-behavior:smooth; }
+  body{
+    font-family:'Mulish',sans-serif; color:var(--starlight);
+    background:linear-gradient(180deg,#150c1e 0%,#1c1029 45%,#241536 100%);
+    overflow-x:hidden; -webkit-font-smoothing:antialiased;
+  }
+
+  /* ---- layers: 3D canvas (0) → vignette (1) → content (2) ---- */
+  #bg{ position:fixed; inset:0; z-index:0; }
+  #bg canvas{ display:block; }
+  .vignette{
+    position:fixed; inset:0; z-index:1; pointer-events:none;
+    background:radial-gradient(120% 90% at 50% 45%, transparent 55%, rgba(13,7,20,.55) 100%);
+  }
+  #scroll{ position:relative; z-index:2; }
+
+  /* ---- brand mark ---- */
+  .mark{
+    position:fixed; top:26px; left:30px; z-index:3;
+    font-family:'Josefin Sans',sans-serif; font-weight:600;
+    letter-spacing:.32em; text-transform:uppercase; font-size:.78rem;
+    color:var(--pink); text-shadow:0 2px 16px rgba(13,7,20,.8);
+  }
+
+  /* ---- panels ---- */
+  .panel{ min-height:100vh; display:flex; align-items:center; padding:12vh 7vw; position:relative; }
+  .panel.center{ justify-content:center; text-align:center; }
+  .panel.left{ justify-content:flex-start; }
+  .panel.right{ justify-content:flex-end; }
+
+  /* THE FIX — every text block lives on frosted glass.
+     Words stay readable no matter what the planet does behind them. */
+  .card{
+    max-width:600px;
+    background:linear-gradient(165deg, var(--glass), rgba(20,11,31,.42));
+    -webkit-backdrop-filter:blur(18px) saturate(1.25);
+    backdrop-filter:blur(18px) saturate(1.25);
+    border:1px solid var(--glass-edge);
+    border-radius:26px;
+    padding:52px 50px;
+    box-shadow:0 24px 70px rgba(10,5,16,.55), inset 0 1px 0 rgba(255,220,236,.08);
+  }
+  /* graceful fallback if a browser lacks backdrop-filter: darker solid glass */
+  @supports not (backdrop-filter:blur(1px)){
+    .card{ background:rgba(22,12,33,.9); }
+  }
+
+  .hero-stage{ display:flex; flex-direction:column; align-items:center; }
+  .hero-card{ background:none; border:none; box-shadow:none; -webkit-backdrop-filter:none; backdrop-filter:none; padding:0; position:relative; }
+  /* soft scrim halo behind the title so it reads over the planet */
+  .hero-card::before{
+    content:""; position:absolute; inset:-18% -30%;
+    background:radial-gradient(60% 60% at 50% 50%, rgba(13,7,20,.62), transparent 70%);
+    z-index:-1; border-radius:50%;
+  }
+
+  .eyebrow{
+    font-family:'Josefin Sans',sans-serif; font-weight:600;
+    letter-spacing:.34em; text-transform:uppercase; font-size:.7rem;
+    color:var(--rose); margin-bottom:18px;
+  }
+  h1{
+    font-family:'Josefin Sans',sans-serif; font-weight:300;
+    font-size:clamp(3.2rem,13vw,7.4rem); line-height:.96; letter-spacing:.03em;
+    background:linear-gradient(105deg,#ffe3ef 0%,#ff9fcb 42%,#c4b3e6 100%);
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+    filter:drop-shadow(0 4px 30px rgba(13,7,20,.85)) drop-shadow(0 0 42px rgba(255,143,196,.28));
+    margin-bottom:20px;
+  }
+  h2{
+    font-family:'Josefin Sans',sans-serif; font-weight:300;
+    font-size:clamp(1.9rem,5vw,3rem); line-height:1.08; letter-spacing:.02em;
+    color:var(--starlight); margin-bottom:16px;
+  }
+  h2 em{ font-style:italic; color:var(--pink-bright); }
+  .tagline{
+    font-weight:300; font-size:clamp(1rem,2.6vw,1.35rem); color:var(--pink-bright);
+    letter-spacing:.06em; text-shadow:0 2px 20px rgba(13,7,20,.9);
+  }
+  p.body{ color:var(--starlight); font-weight:300; font-size:1.03rem; line-height:1.75; opacity:.92; }
+
+  /* tracks */
+  .tracklist{ margin-top:30px; display:flex; flex-direction:column; gap:6px; }
+  .trk{
+    display:flex; align-items:baseline; justify-content:space-between; gap:18px;
+    padding:16px 4px; border-bottom:1px solid rgba(246,201,221,.14);
+    text-decoration:none; transition:padding-left .3s ease, border-color .3s ease;
+  }
+  .trk:hover{ padding-left:12px; border-color:rgba(255,143,196,.5); }
+  .trk .t{ font-family:'Josefin Sans',sans-serif; font-size:1.32rem; color:var(--pink-bright); }
+  .trk .m{ font-size:.72rem; letter-spacing:.16em; text-transform:uppercase; color:var(--lilac); white-space:nowrap; }
+
+  /* personas */
+  .spectrum{ margin-top:30px; display:flex; flex-direction:column; gap:18px; }
+  .pers{ display:flex; gap:16px; align-items:flex-start; }
+  .pers .dot{ flex:none; width:14px; height:14px; border-radius:50%; margin-top:6px; }
+  .pers.a .dot{ background:#ffdcec; box-shadow:0 0 14px rgba(255,220,236,.8); }
+  .pers.b .dot{ background:#ff8fc4; box-shadow:0 0 14px rgba(255,143,196,.9); }
+  .pers.c .dot{ background:#c4b3e6; box-shadow:0 0 14px rgba(196,179,230,.9); }
+  .pers .n{ font-family:'Josefin Sans',sans-serif; font-size:1.15rem; color:var(--starlight); }
+  .pers .d{ color:var(--muted); font-weight:300; font-size:.95rem; }
+
+  /* listen buttons */
+  .platforms{ margin-top:30px; display:flex; gap:12px; flex-wrap:wrap; justify-content:center; }
+  .platforms a{
+    font-family:'Josefin Sans',sans-serif; font-weight:500; letter-spacing:.14em;
+    text-transform:uppercase; font-size:.8rem; color:#2a1031; text-decoration:none;
+    padding:14px 28px; border-radius:40px;
+    background:linear-gradient(100deg,#ffdcec,#ff9fcb 55%,#e08cb0);
+    box-shadow:0 6px 24px rgba(255,143,196,.3);
+    transition:transform .25s ease, box-shadow .25s ease;
+  }
+  .platforms a:hover{ transform:translateY(-2px); box-shadow:0 10px 32px rgba(255,143,196,.45); }
+  .platforms a.ghost{
+    background:transparent; color:var(--pink); border:1px solid rgba(246,201,221,.4); box-shadow:none;
+  }
+  .platforms a.ghost:hover{ background:rgba(246,201,221,.08); }
+
+  .scrollhint{
+    position:absolute; bottom:34px; left:50%; transform:translateX(-50%);
+    color:var(--pink); font-size:.7rem; letter-spacing:.3em; text-transform:uppercase;
+    text-shadow:0 2px 14px rgba(13,7,20,.9); animation:bob 2.6s ease-in-out infinite;
+  }
+  @keyframes bob{ 0%,100%{ transform:translate(-50%,0); opacity:.55; } 50%{ transform:translate(-50%,9px); opacity:1; } }
+
+  /* ---- discography matrix ---- */
+  .card.wide{ max-width:780px; width:100%; }
+  .filters{ margin-top:26px; display:flex; flex-wrap:wrap; gap:8px; }
+  .fchip{
+    font-family:'Josefin Sans',sans-serif; font-size:.72rem; letter-spacing:.1em;
+    text-transform:uppercase; color:var(--lilac);
+    background:rgba(196,179,230,.08); border:1px solid rgba(196,179,230,.25);
+    border-radius:30px; padding:7px 15px; cursor:pointer;
+    transition:all .25s ease;
+  }
+  .fchip:hover{ border-color:rgba(255,143,196,.5); color:var(--pink-bright); }
+  .fchip.active{
+    background:linear-gradient(100deg,#ffdcec,#ff9fcb 60%,#e08cb0);
+    color:#2a1031; border-color:transparent; box-shadow:0 4px 16px rgba(255,143,196,.35);
+  }
+  .disco{ margin-top:22px; display:flex; flex-direction:column; }
+  .song{
+    display:flex; flex-direction:column; gap:8px;
+    padding:18px 4px; border-bottom:1px solid rgba(246,201,221,.13);
+    text-decoration:none; transition:padding-left .3s ease, border-color .3s ease, opacity .3s ease;
+  }
+  .song:hover{ padding-left:12px; border-color:rgba(255,143,196,.5); }
+  .song .t{ font-family:'Josefin Sans',sans-serif; font-size:1.25rem; color:var(--pink-bright); }
+  .song .tags{ display:flex; flex-wrap:wrap; gap:6px; }
+  .song .tag{
+    font-size:.66rem; letter-spacing:.12em; text-transform:uppercase;
+    color:var(--lilac); background:rgba(196,179,230,.1);
+    border-radius:20px; padding:4px 11px;
+  }
+  .song.hide{ display:none; }
+  .disco-count{ margin-top:14px; font-size:.78rem; color:var(--muted); letter-spacing:.08em; }
+
+  /* ---- FAQ ---- */
+  .faq-item{ margin-top:22px; }
+  .faq-item .q{ font-family:'Josefin Sans',sans-serif; font-size:1.1rem; color:var(--pink-bright); margin-bottom:6px; }
+  .faq-item p{ font-size:.97rem; }
+
+  /* loader */
+  .loader{ position:fixed; inset:0; z-index:6; background:#150c1e; display:flex; align-items:center; justify-content:center; transition:opacity .7s ease; }
+  .loader .l{ font-family:'Josefin Sans',sans-serif; letter-spacing:.4em; text-transform:uppercase; font-size:.78rem; color:var(--pink); animation:pulse 1.6s ease-in-out infinite; }
+  @keyframes pulse{ 0%,100%{ opacity:.35; } 50%{ opacity:1; } }
+
+  footer{ position:relative; z-index:2; text-align:center; padding:56px 20px; }
+  footer .fmark{ font-family:'Josefin Sans',sans-serif; letter-spacing:.3em; text-transform:uppercase; color:var(--pink); margin-bottom:10px; font-size:.85rem; }
+  footer p{ color:var(--muted); font-size:.8rem; font-weight:300; }
+  footer .from{ color:var(--rose); font-style:italic; margin-top:4px; }
+
+  /* ---- reveals: content is ALWAYS visible by default.
+         Animation only runs when JS confirms it can (body.js),
+         and it always ends at full opacity. ---- */
+  .js .reveal{ opacity:0; transform:translateY(26px); transition:opacity .9s ease, transform .9s ease; }
+  .js .reveal.in{ opacity:1; transform:none; }
+
+  @media (max-width:680px){
+    .panel{ padding:10vh 6vw; }
+    .card{ padding:38px 30px; }
+    .mark{ left:22px; }
+  }
+  @media (prefers-reduced-motion:reduce){
+    .js .reveal{ transition:none; opacity:1; transform:none; }
+    .scrollhint{ animation:none; }
+    html{ scroll-behavior:auto; }
+  }
+  a:focus-visible{ outline:2px solid var(--pink-bright); outline-offset:3px; border-radius:8px; }
+</style>
+</head>
+<body>
+<script>document.body.classList.add('js');</script>
+
+  <div class="loader" id="loader"><span class="l">entering the pink planet…</span></div>
+
+  <div id="bg"></div>
+  <div class="vignette"></div>
+
+  <span class="mark">Neon Lyra</span>
+
+  <div id="scroll">
+
+    <!-- HERO -->
+    <section class="panel center">
+      <div class="hero-stage">
+        <div class="card hero-card reveal">
+          <!-- ✏️ EDIT: your name + tagline -->
+          <h1>Neon&nbsp;Lyra</h1>
+          <p class="tagline">Futuristic music from a pink planet</p>
+        </div>
+      </div>
+      <div class="scrollhint">scroll to enter</div>
+    </section>
+
+    <!-- MUSIC — text left, planet drifts right -->
+    <section class="panel left">
+      <div class="card reveal">
+        <p class="eyebrow">Transmissions</p>
+        <h2>Songs from the <em>pink planet</em></h2>
+        <p class="body">Signals sent across the dark — soft, electric, somewhere between a dream and a machine.</p>
+        <div class="tracklist">
+          <!-- ✏️ EDIT tracks: title, mood, and the YOUR-LINK addresses -->
+          <a class="trk" href="https://distrokid.com/hyperfollow/neonlyra/soft-places-to-land"><span class="t">Soft Places to Land</span><span class="m"> Introspective · newest</span></a>
+          <a class="trk" href="https://youtu.be/al_rXudCCOM?si=ylcYmk1-mJWKRwEG"><span class="t">Trapped in Steel</span><span class="m">Machine Queen</span></a>
+          <a class="trk" href="https://distrokid.com/hyperfollow/neonlyra/trick-of-the-night"><span class="t">Trick of the Night</span><span class="m">Lesbian Desert Dance</span></a>
+        </div>
+      </div>
+    </section>
+
+    <!-- PERSONAS — text right, planet drifts left -->
+    <section class="panel right">
+      <div class="card reveal">
+        <p class="eyebrow">One voice, three lights</p>
+        <h2>Which Neon Lyra<br>are you <em>hearing?</em></h2>
+        <p class="body">Every song lands somewhere on the spectrum — from the first soft light, through the bright pull, to the cold machine edge.</p>
+        <div class="spectrum">
+          <div class="pers a"><span class="dot"></span><div><div class="n">Artist Philosopher</div><div class="d">Introspective, half-dreaming — covers themes like feminism, mental health etc.</div></div></div>
+          <div class="pers b"><span class="dot"></span><div><div class="n">Party Queen</div><div class="d">Lgbt+ cosmic club vibes - bright enough to cross the dark.</div></div></div>
+          <div class="pers c"><span class="dot"></span><div><div class="n">Science Nerd</div><div class="d">Machines with feminine energy — futuristic space vibes.</div></div></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- DISCOGRAPHY MATRIX — every song, filterable by identity.
+         ✏️ EDIT: song titles, tags (in data-tags AND the visible chips),
+         and the href links. ⚠️ Songs without a link yet point to your
+         Spotify artist page — replace each with its own song link
+         (HyperFollow, Spotify track, or YouTube) when you have it. -->
+    <section class="panel center">
+      <div class="card wide reveal">
+        <p class="eyebrow">The catalogue</p>
+        <h2>Every song, every <em>identity</em></h2>
+        <p class="body">Songs from the pink planet rarely wear one label. Pick an identity and see which transmissions carry it.</p>
+
+        <div class="filters" id="filters">
+          <button class="fchip active" data-filter="all">All</button>
+          <button class="fchip" data-filter="feminist">Feminist</button>
+          <button class="fchip" data-filter="queer">Queer</button>
+          <button class="fchip" data-filter="introspective">Introspective</button>
+          <button class="fchip" data-filter="party">Party</button>
+          <button class="fchip" data-filter="futuristic">Futuristic</button>
+          <button class="fchip" data-filter="mental-health">Mental health</button>
+          <button class="fchip" data-filter="power">Power</button>
+          <button class="fchip" data-filter="dance">Dance</button>
+          <button class="fchip" data-filter="relaxing">Relaxing</button>
+          <button class="fchip" data-filter="love">Love</button>
+          <button class="fchip" data-filter="dark">Dark</button>
+          <button class="fchip" data-filter="space">Space</button>
+        </div>
+
+        <div class="disco" id="disco">
+          <a class="song" data-tags="feminist drag-queen introspective party" href="https://distrokid.com/hyperfollow/neonlyra/pink-lemonade">
+            <span class="t">Pink Lemonade</span>
+            <span class="tags"><span class="tag">Feminist</span><span class="tag">Drag queen</span><span class="tag">Introspective</span><span class="tag">Party</span></span>
+          </a>
+          <a class="song" data-tags="futuristic introspective dark mental-health" href="https://youtu.be/al_rXudCCOM?si=ylcYmk1-mJWKRwEG">
+            <span class="t">Trapped in Steel</span>
+            <span class="tags"><span class="tag">Futuristic</span><span class="tag">Introspective</span><span class="tag">Dark</span><span class="tag">Mental health</span></span>
+          </a>
+          <a class="song" data-tags="futuristic feminist power" href="https://open.spotify.com/artist/214mPBUKBjxZOS77kDp3WM">
+            <span class="t">Rise of the Machine Queen</span>
+            <span class="tags"><span class="tag">Futuristic</span><span class="tag">Feminist</span><span class="tag">Power</span></span>
+          </a>
+          <a class="song" data-tags="introspective loneliness futuristic" href="https://open.spotify.com/artist/214mPBUKBjxZOS77kDp3WM">
+            <span class="t">Code of Loneliness</span>
+            <span class="tags"><span class="tag">Introspective</span><span class="tag">Loneliness</span><span class="tag">Futuristic</span></span>
+          </a>
+          <a class="song" data-tags="futuristic space party" href="https://open.spotify.com/artist/214mPBUKBjxZOS77kDp3WM">
+            <span class="t">Red Dirt Road (Mars Vacation)</span>
+            <span class="tags"><span class="tag">Futuristic</span><span class="tag">Space</span><span class="tag">Party</span></span>
+          </a>
+          <a class="song" data-tags="queer love relaxing nostalgic" href="https://open.spotify.com/artist/214mPBUKBjxZOS77kDp3WM">
+            <span class="t">Sunday Mornings</span>
+            <span class="tags"><span class="tag">Queer</span><span class="tag">Love</span><span class="tag">Relaxing</span><span class="tag">Nostalgic</span></span>
+          </a>
+          <a class="song" data-tags="queer party dance" href="https://open.spotify.com/artist/214mPBUKBjxZOS77kDp3WM">
+            <span class="t">Funky Love</span>
+            <span class="tags"><span class="tag">Queer</span><span class="tag">Party</span><span class="tag">Dance</span></span>
+          </a>
+          <a class="song" data-tags="feminist power introspective mental-health" href="https://open.spotify.com/artist/214mPBUKBjxZOS77kDp3WM">
+            <span class="t">Battle Cry</span>
+            <span class="tags"><span class="tag">Feminist</span><span class="tag">Power</span><span class="tag">Introspective</span><span class="tag">Mental health</span></span>
+          </a>
+          <a class="song" data-tags="party queer arty" href="https://open.spotify.com/artist/214mPBUKBjxZOS77kDp3WM">
+            <span class="t">Glitter in the Hookah Smoke</span>
+            <span class="tags"><span class="tag">Party</span><span class="tag">Queer</span><span class="tag">Arty</span></span>
+          </a>
+          <a class="song" data-tags="queer lust dance" href="https://distrokid.com/hyperfollow/neonlyra/trick-of-the-night">
+            <span class="t">Trick of the Night</span>
+            <span class="tags"><span class="tag">Queer</span><span class="tag">Lust</span><span class="tag">Dance</span></span>
+          </a>
+          <a class="song" data-tags="introspective relaxing mental-health" href="https://distrokid.com/hyperfollow/neonlyra/soft-places-to-land">
+            <span class="t">Soft Places to Land</span>
+            <span class="tags"><span class="tag">Introspective</span><span class="tag">Relaxing</span><span class="tag">Mental health</span></span>
+          </a>
+        </div>
+        <div class="disco-count" id="disco-count"></div>
+      </div>
+    </section>
+
+    <!-- ABOUT — indexable prose for Google & AI search.
+         ✏️ EDIT freely, but keep it factual: this is what gets quoted. -->
+    <section class="panel left" id="about">
+      <div class="card reveal">
+        <p class="eyebrow">About</p>
+        <h2>Who is <em>Neon Lyra?</em></h2>
+        <p class="body" style="margin-bottom:16px;">
+          Neon Lyra is an AI music artist based in the Netherlands, founded in 2024. The project
+          makes futuristic pop — electronic music that ranges from introspective synth-pop to
+          queer cosmic club tracks and cyberpunk. Every release is created and published by
+          Neon Lyra as an openly AI-assisted project, with the use of AI disclosed on every
+          release, and distributed to Spotify, Apple Music, YouTube Music and all other major
+          streaming platforms.
+        </p>
+        <p class="body" style="margin-bottom:16px;">
+          The music is built around one imagined place: a pink planet — tender science fiction
+          with dual moons, reflective visors and pastel landscapes. Three voices broadcast from
+          it. The Artist Philosopher is introspective and half-dreaming, writing about feminism
+          and mental health. The Party Queen brings LGBT+ cosmic club energy, bright enough to
+          cross the dark. The Science Nerd is machines with feminine energy — futuristic space
+          vibes. Most songs carry more than one of these identities at once.
+        </p>
+        <p class="body">
+          Releases include “Pink Lemonade”, a dark-playful electro art-pop track; “Trapped in
+          Steel” and “Rise of the Machine Queen”, cyberpunk songs; “Sunday Mornings” and
+          “Soft Places to Land”, softer introspective tracks; and queer dance songs like
+          “Trick of the Night” and “Funky Love”. New music is released regularly.
+        </p>
+      </div>
+    </section>
+
+    <!-- FAQ — clear Q&A text is what AI search engines quote most. -->
+    <section class="panel right" id="faq">
+      <div class="card reveal">
+        <p class="eyebrow">Questions</p>
+        <h2>The <em>short answers</em></h2>
+        <div class="faq-item">
+          <div class="q">What kind of music does Neon Lyra make?</div>
+          <p class="body">Futuristic pop: introspective synth-pop, queer cosmic club and dance tracks, and cyberpunk — music from an imagined pink planet.</p>
+        </div>
+        <div class="faq-item">
+          <div class="q">Is Neon Lyra an AI artist?</div>
+          <p class="body">Yes. Neon Lyra is an openly AI-assisted music project. The use of AI is disclosed on every release. The songwriting choices, production decisions, artwork direction and world-building are human-led.</p>
+        </div>
+        <div class="faq-item">
+          <div class="q">Where can I listen?</div>
+          <p class="body">On Spotify, Apple Music, YouTube Music and YouTube, and all other major streaming platforms. The official website is neonlyra.com.</p>
+        </div>
+        <div class="faq-item">
+          <div class="q">When did Neon Lyra start?</div>
+          <p class="body">The project began in 2024 and releases music on all major streaming platforms.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- LISTEN -->
+    <section class="panel center">
+      <div class="card reveal" style="text-align:center;">
+        <p class="eyebrow">Tune in</p>
+        <h2>Listen <em>everywhere</em></h2>
+        <p class="body">The official home for every release from the pink planet.</p>
+        <div class="platforms">
+          <!-- ✏️ EDIT: replace with your real profile links -->
+          <a href="https://open.spotify.com/artist/214mPBUKBjxZOS77kDp3WM">Spotify</a>
+          <a class="ghost" href="https://music.youtube.com/channel/UC-nJ0w-FyFwO5KUStmCe4Kw">YouTube Music</a>
+          <a class="ghost" href="https://www.youtube.com/@NeonLyra-x4n">YouTube</a>
+          <a class="ghost" href="https://music.apple.com/artist/1794814168">Apple Music</a>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="fmark">Neon Lyra</div>
+      <p>© 2024-<span id="yr"></span> Neon Lyra. All rights reserved.</p>
+      <p class="from">broadcasting from a pink planet</p>
+    </footer>
+
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+  <script>
+  (function(){
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const container = document.getElementById('bg');
+
+    /* ---------- renderer / scene / camera ---------- */
+    const renderer = new THREE.WebGLRenderer({ antialias:true, alpha:true });
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.outputEncoding = THREE.sRGBEncoding;
+    container.appendChild(renderer.domElement);
+
+    const scene = new THREE.Scene();
+    scene.fog = new THREE.FogExp2(0x150c1e, 0.011);
+
+    const camera = new THREE.PerspectiveCamera(55, window.innerWidth/window.innerHeight, 0.1, 320);
+    camera.position.set(0, 0.8, 16);
+    const look = { x:0, y:0, z:0 };
+
+    /* ---------- lights ---------- */
+    scene.add(new THREE.AmbientLight(0xff9fcb, 0.5));
+    const key = new THREE.PointLight(0xffd9ea, 2.3, 130); key.position.set(9, 7, 11); scene.add(key);
+    const rim = new THREE.DirectionalLight(0xc4b3e6, 0.85); rim.position.set(-7, -2, -5); scene.add(rim);
+
+    /* ---------- pink planet + atmosphere + ring + moon ---------- */
+    const planet = new THREE.Mesh(
+      new THREE.SphereGeometry(3.2, 64, 64),
+      new THREE.MeshStandardMaterial({ color:0xf29ec3, emissive:0x5a1e56, emissiveIntensity:0.32, roughness:0.72, metalness:0.22 })
+    );
+    scene.add(planet);
+
+    const atm = new THREE.Mesh(
+      new THREE.SphereGeometry(3.2*1.18, 64, 64),
+      new THREE.ShaderMaterial({
+        transparent:true, blending:THREE.AdditiveBlending, side:THREE.BackSide,
+        vertexShader:'varying vec3 vN; void main(){ vN=normalize(normalMatrix*normal); gl_Position=projectionMatrix*modelViewMatrix*vec4(position,1.0);}',
+        fragmentShader:'varying vec3 vN; void main(){ float i=pow(0.72-dot(vN,vec3(0.0,0.0,1.0)),2.4); gl_FragColor=vec4(1.0,0.6,0.8,1.0)*i; }'
+      })
+    );
+    scene.add(atm);
+
+    const ring = new THREE.Mesh(
+      new THREE.RingGeometry(4.4, 6.4, 96),
+      new THREE.MeshBasicMaterial({ color:0xf6c9dd, transparent:true, opacity:0.09, side:THREE.DoubleSide, blending:THREE.AdditiveBlending, depthWrite:false })
+    );
+    ring.rotation.x = Math.PI*0.46; ring.rotation.y = 0.2; scene.add(ring);
+
+    const moon = new THREE.Mesh(
+      new THREE.SphereGeometry(0.4, 24, 24),
+      new THREE.MeshStandardMaterial({ color:0xe8d5f0, emissive:0x3a2450, emissiveIntensity:0.4, roughness:0.9 })
+    );
+    scene.add(moon);
+
+    /* ---------- starfield ---------- */
+    const STAR = reduced ? 700 : 1900;
+    const sg = new THREE.BufferGeometry();
+    const sp = new Float32Array(STAR*3), sc = new Float32Array(STAR*3);
+    const palette = [[1,0.86,0.93],[1,0.56,0.77],[0.77,0.7,0.9],[1,1,1]];
+    for(let i=0;i<STAR;i++){
+      const r = 42 + Math.random()*170;
+      const th = Math.random()*Math.PI*2, ph = Math.acos(2*Math.random()-1);
+      sp[i*3]=r*Math.sin(ph)*Math.cos(th); sp[i*3+1]=r*Math.sin(ph)*Math.sin(th); sp[i*3+2]=r*Math.cos(ph);
+      const c = palette[(Math.random()*palette.length)|0];
+      sc[i*3]=c[0]; sc[i*3+1]=c[1]; sc[i*3+2]=c[2];
+    }
+    sg.setAttribute('position', new THREE.BufferAttribute(sp,3));
+    sg.setAttribute('color', new THREE.BufferAttribute(sc,3));
+    const stars = new THREE.Points(sg, new THREE.PointsMaterial({ size:0.65, sizeAttenuation:true, vertexColors:true, transparent:true, opacity:0.9, depthWrite:false }));
+    scene.add(stars);
+
+    /* ---------- space jellies (placeholder creatures — swap for .glb later) ---------- */
+    function makeJelly(color, scale){
+      const g = new THREE.Group();
+      g.add(new THREE.Mesh(
+        new THREE.SphereGeometry(1, 32, 24, 0, Math.PI*2, 0, Math.PI*0.55),
+        new THREE.MeshStandardMaterial({ color, emissive:color, emissiveIntensity:0.5, roughness:0.3, transparent:true, opacity:0.85 })
+      ));
+      const tMat = new THREE.MeshStandardMaterial({ color, emissive:color, emissiveIntensity:0.4, roughness:0.4, transparent:true, opacity:0.6 });
+      for(let i=0;i<7;i++){
+        const a=(i/7)*Math.PI*2, r=0.55, x=Math.cos(a)*r, z=Math.sin(a)*r;
+        const curve = new THREE.CatmullRomCurve3([
+          new THREE.Vector3(x,0,z), new THREE.Vector3(x*1.15,-0.9,z*1.15),
+          new THREE.Vector3(x*0.8,-1.7,z*0.8), new THREE.Vector3(x*1.25,-2.6,z*1.25)
+        ]);
+        g.add(new THREE.Mesh(new THREE.TubeGeometry(curve,22,0.05,8,false), tMat));
+      }
+      g.scale.setScalar(scale);
+      return g;
+    }
+    const jelly = makeJelly(0xff9fcb, 0.9);  jelly.position.set(-6.4, 1.4, -1);  scene.add(jelly);
+    const jelly2 = makeJelly(0xc4b3e6, 0.55); jelly2.position.set(6.8, -2.6, -3.5); scene.add(jelly2);
+
+    /* ---------- scroll choreography — CAMERA ONLY.
+         Text visibility is never controlled by scroll. ---------- */
+    if(!reduced && window.gsap && window.ScrollTrigger){
+      gsap.registerPlugin(ScrollTrigger);
+      const tl = gsap.timeline({ scrollTrigger:{ trigger:'#scroll', start:'top top', end:'bottom bottom', scrub:1 } });
+      /* music panel: text sits LEFT → aim left of the planet so it drifts RIGHT of screen */
+      tl.to(camera.position, { x:-4.5, y:1.2, z:10.5, ease:'none' })
+        .to(look, { x:-4.2, y:0.6, z:0, ease:'none' }, '<')
+      /* personas panel: text RIGHT → planet drifts LEFT */
+        .to(camera.position, { x:4.6, y:2.1, z:10, ease:'none' })
+        .to(look, { x:4.2, y:0.8, z:0, ease:'none' }, '<')
+      /* discography: rise above the planet — wide card in the centre */
+        .to(camera.position, { x:0, y:7, z:15, ease:'none' })
+        .to(look, { x:0, y:-1, z:0, ease:'none' }, '<')
+      /* about: descend to the left, planet drifts right */
+        .to(camera.position, { x:-5, y:0.5, z:11, ease:'none' })
+        .to(look, { x:-4.5, y:0.4, z:0, ease:'none' }, '<')
+      /* faq: swing to the right, planet drifts left */
+        .to(camera.position, { x:5, y:1.6, z:10.5, ease:'none' })
+        .to(look, { x:4.4, y:0.7, z:0, ease:'none' }, '<')
+      /* listen: pull back to a wide, calm vista */
+        .to(camera.position, { x:0, y:5, z:24, ease:'none' })
+        .to(look, { x:0, y:0, z:0, ease:'none' }, '<');
+    } else {
+      camera.position.set(-1, 2, 16);
+    }
+
+    /* ---------- text reveals: IntersectionObserver, one-way, always end visible ---------- */
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, { threshold:0.2 });
+    document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+    /* safety net: whatever happens, everything is visible after 2.5s */
+    setTimeout(()=> document.querySelectorAll('.reveal').forEach(el=>el.classList.add('in')), 2500);
+
+    /* ---------- render loop ---------- */
+    const clock = new THREE.Clock();
+    let running = true;
+    function animate(){
+      if(!running) return;
+      requestAnimationFrame(animate);
+      const t = clock.getElapsedTime();
+      planet.rotation.y += 0.001;
+      atm.rotation.y = planet.rotation.y;
+      stars.rotation.y += 0.00016;
+      ring.rotation.z += 0.00035;
+      moon.position.set(Math.cos(t*0.32)*6.2, Math.sin(t*0.32)*1.5, Math.sin(t*0.32)*6.2);
+      jelly.position.y  = 1.4  + Math.sin(t*0.8)*0.35;  jelly.rotation.y  += 0.003;
+      jelly2.position.y = -2.6 + Math.cos(t*0.6)*0.4;   jelly2.rotation.y -= 0.004;
+      camera.lookAt(look.x, look.y, look.z);
+      renderer.render(scene, camera);
+    }
+    animate();
+
+    document.addEventListener('visibilitychange', ()=>{
+      running = !document.hidden;
+      if(running){ clock.start(); animate(); }
+    });
+
+    window.addEventListener('resize', ()=>{
+      camera.aspect = window.innerWidth/window.innerHeight;
+      camera.updateProjectionMatrix();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+
+    /* loader: hides on load, with a hard fallback so it can never stick */
+    function hideLoader(){
+      const l = document.getElementById('loader');
+      if(!l) return;
+      l.style.opacity = '0';
+      setTimeout(()=> l.style.display='none', 750);
+    }
+    if(document.readyState === 'complete'){ hideLoader(); }
+    else { window.addEventListener('load', ()=> setTimeout(hideLoader, 300)); }
+    setTimeout(hideLoader, 3000);
+
+    /* ---------- discography identity filter ---------- */
+    const chips = document.querySelectorAll('#filters .fchip');
+    const songs = document.querySelectorAll('#disco .song');
+    const countEl = document.getElementById('disco-count');
+    function applyFilter(f){
+      let shown = 0;
+      songs.forEach(s=>{
+        const match = f==='all' || s.dataset.tags.split(' ').includes(f);
+        s.classList.toggle('hide', !match);
+        if(match) shown++;
+      });
+      if(countEl) countEl.textContent = shown === songs.length
+        ? songs.length + ' transmissions'
+        : shown + ' of ' + songs.length + ' transmissions';
+    }
+    chips.forEach(c=>c.addEventListener('click', ()=>{
+      chips.forEach(x=>x.classList.remove('active'));
+      c.classList.add('active');
+      applyFilter(c.dataset.filter);
+    }));
+    if(songs.length) applyFilter('all');
+
+    document.getElementById('yr').textContent = new Date().getFullYear();
+  })();
+  </script>
+
+</body>
+</html>
