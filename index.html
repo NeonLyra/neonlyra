@@ -278,6 +278,44 @@
   .faq-item .q{ font-family:'Josefin Sans',sans-serif; font-size:1.1rem; color:var(--pink-bright); margin-bottom:6px; }
   .faq-item p{ font-size:.97rem; }
 
+  /* ---- mini audio player (persistent) ---- */
+  .player{
+    position:fixed; right:26px; bottom:26px; z-index:5;
+    display:flex; align-items:center; gap:12px;
+    padding:10px 18px 10px 12px; border-radius:44px;
+    background:rgba(24,13,36,.72);
+    -webkit-backdrop-filter:blur(16px) saturate(1.2); backdrop-filter:blur(16px) saturate(1.2);
+    border:1px solid rgba(246,201,221,.22);
+    box-shadow:0 10px 34px rgba(10,5,16,.5);
+    max-width:min(78vw,320px);
+  }
+  .player .pbtn{
+    flex:none; width:42px; height:42px; border:none; border-radius:50%; cursor:pointer;
+    display:flex; align-items:center; justify-content:center;
+    background:linear-gradient(100deg,#ffdcec,#ff9fcb 55%,#e08cb0);
+    box-shadow:0 4px 16px rgba(255,143,196,.4);
+    transition:transform .2s ease;
+  }
+  .player .pbtn:hover{ transform:scale(1.06); }
+  .player .pbtn svg{ width:16px; height:16px; fill:#2a1031; }
+  .player .pinfo{ min-width:0; }
+  .player .plabel{
+    font-family:'Josefin Sans',sans-serif; font-size:.7rem; letter-spacing:.14em;
+    text-transform:uppercase; color:var(--rose);
+  }
+  .player .ptrack{
+    font-family:'Josefin Sans',sans-serif; font-size:.9rem; color:var(--pink-bright);
+    white-space:nowrap; overflow:hidden; text-overflow:ellipsis;
+  }
+  .player .pbar{ margin-top:5px; height:3px; border-radius:3px; background:rgba(246,201,221,.2); overflow:hidden; }
+  .player .pfill{ height:100%; width:0%; background:linear-gradient(90deg,#ff9fcb,#c4b3e6); border-radius:3px; }
+  .player .pclose{
+    flex:none; background:none; border:none; cursor:pointer; color:var(--muted);
+    font-size:1.1rem; line-height:1; padding:4px; transition:color .2s ease;
+  }
+  .player .pclose:hover{ color:var(--pink-bright); }
+  @media (max-width:680px){ .player{ right:12px; bottom:12px; left:12px; max-width:none; } }
+
   /* loader */
   .loader{ position:fixed; inset:0; z-index:6; background:#150c1e; display:flex; align-items:center; justify-content:center; transition:opacity .7s ease; }
   .loader .l{ font-family:'Josefin Sans',sans-serif; letter-spacing:.4em; text-transform:uppercase; font-size:.78rem; color:var(--pink); animation:pulse 1.6s ease-in-out infinite; }
@@ -295,11 +333,16 @@
   .js .reveal.in{ opacity:1; transform:none; }
 
   @media (max-width:680px){
-    .panel{ padding:10vh 6vw; }
-    .card{ padding:38px 30px; }
+    /* tall panels grow with their content instead of being forced to full height,
+       which was pushing content off-screen and confusing mobile browsers */
+    .panel{ min-height:auto; padding:88px 6vw 72px; }
+    .panel.center{ min-height:100vh; }
+    .card{ padding:32px 24px; }
+    h2{ font-size:clamp(1.6rem,7vw,2.2rem); }
+    p.body{ font-size:.98rem; }
     .mark{ display:none; }
-    .nav{ top:12px; padding:4px; gap:2px; max-width:94vw; }
-    .nav a{ padding:8px 11px; font-size:.62rem; letter-spacing:.08em; }
+    .nav{ top:12px; padding:4px; gap:2px; max-width:94vw; overflow-x:auto; }
+    .nav a{ padding:8px 10px; font-size:.6rem; letter-spacing:.06em; white-space:nowrap; }
     .listen-fab{ right:16px; bottom:16px; padding:12px 18px; font-size:.68rem; }
   }
   @media (prefers-reduced-motion:reduce){
@@ -328,13 +371,26 @@
     <a href="#listen" data-sec="listen">Listen</a>
   </nav>
 
-  <!-- ✏️ EDIT: this always-visible button can point anywhere.
-       Right now it jumps to the Listen section. To send people straight
-       to Spotify instead, change the href to your Spotify artist URL. -->
-  <a class="listen-fab" href="#listen">
-    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
-    Listen
-  </a>
+  <!-- Persistent mini-player. Plays Pink Lemonade.
+       ✏️ EDIT: change the src below to your audio file's path once uploaded
+       to the repo (e.g. "pink-lemonade.mp3"), and the .ptrack title text. -->
+  <div class="player" id="player">
+    <button class="pbtn" id="pbtn" aria-label="Play Pink Lemonade">
+      <svg id="picon" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+    </button>
+    <div class="pinfo">
+      <div class="plabel">Now playing</div>
+      <div class="ptrack">Pink Lemonade</div>
+      <div class="pbar"><div class="pfill" id="pfill"></div></div>
+    </div>
+    <button class="pclose" id="pclose" aria-label="Hide player">&times;</button>
+  </div>
+  <audio id="audio" preload="none">
+    <!-- ✏️ EDIT: upload pink-lemonade.mp3 to your repo, then this just works.
+         The .wav also works but is a much bigger file; mp3 is better for web. -->
+    <source src="pink-lemonade-preview.mp3" type="audio/mpeg">
+    <source src="pink-lemonade-preview.wav" type="audio/wav">
+  </audio>
 
   <div id="scroll">
 
@@ -725,18 +781,22 @@
     else { window.addEventListener('load', ()=> setTimeout(hideLoader, 300)); }
     setTimeout(hideLoader, 3000);
 
-    /* ---------- nav: highlight the section you're in ---------- */
+    /* ---------- nav: highlight the section you're in ----------
+       Uses scroll position (the section whose top has passed the screen's
+       middle) instead of a 50%-visibility threshold — so tall sections
+       like About highlight correctly. */
     const navLinks = document.querySelectorAll('#nav a');
-    const secs = ['top','music','catalogue','about','listen']
-      .map(id => document.getElementById(id)).filter(Boolean);
-    const navIO = new IntersectionObserver((entries)=>{
-      entries.forEach(e=>{
-        if(e.isIntersecting){
-          navLinks.forEach(a=>a.classList.toggle('active', a.dataset.sec === e.target.id));
-        }
-      });
-    }, { threshold:0.5 });
-    secs.forEach(s=>navIO.observe(s));
+    const secIds = ['top','music','catalogue','about','listen'];
+    const secEls = secIds.map(id => document.getElementById(id)).filter(Boolean);
+    function updateNav(){
+      const mid = window.scrollY + window.innerHeight * 0.4;
+      let current = secEls[0];
+      for(const s of secEls){ if(s.offsetTop <= mid) current = s; }
+      navLinks.forEach(a => a.classList.toggle('active', a.dataset.sec === current.id));
+    }
+    window.addEventListener('scroll', updateNav, { passive:true });
+    window.addEventListener('resize', updateNav);
+    updateNav();
 
     /* ---------- discography identity filter ---------- */
     const chips = document.querySelectorAll('#filters .fchip');
@@ -760,9 +820,32 @@
     }));
     if(songs.length) applyFilter('all');
 
+    /* ---------- mini audio player ---------- */
+    const audio = document.getElementById('audio');
+    const pbtn  = document.getElementById('pbtn');
+    const picon = document.getElementById('picon');
+    const pfill = document.getElementById('pfill');
+    const playIcon = '<path d="M8 5v14l11-7z"/>';
+    const pauseIcon = '<path d="M6 5h4v14H6zM14 5h4v14h-4z"/>';
+    if(pbtn && audio){
+      pbtn.addEventListener('click', ()=>{
+        if(audio.paused){ audio.play().catch(()=>{}); }
+        else { audio.pause(); }
+      });
+      audio.addEventListener('play',  ()=> picon.innerHTML = pauseIcon);
+      audio.addEventListener('pause', ()=> picon.innerHTML = playIcon);
+      audio.addEventListener('timeupdate', ()=>{
+        if(audio.duration) pfill.style.width = (audio.currentTime/audio.duration*100) + '%';
+      });
+      audio.addEventListener('ended', ()=>{ picon.innerHTML = playIcon; pfill.style.width='0%'; });
+    }
+    const pclose = document.getElementById('pclose');
+    if(pclose){ pclose.addEventListener('click', ()=>{ audio.pause(); document.getElementById('player').style.display='none'; }); }
+
     document.getElementById('yr').textContent = new Date().getFullYear();
   })();
   </script>
 
 </body>
 </html>
+
